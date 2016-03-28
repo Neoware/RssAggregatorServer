@@ -15,3 +15,6 @@ libraryDependencies ++= Seq(
 libraryDependencies ++= Seq(
   "mysql" % "mysql-connector-java" % "5.1.27"
 )
+
+lazy val myProject = (project in file("."))
+  .enablePlugins(PlayJava, PlayEbean)
