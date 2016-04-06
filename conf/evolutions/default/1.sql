@@ -3,16 +3,41 @@
 
 # --- !Ups
 
+create table feeds (
+  id                            integer auto_increment not null,
+  name                          varchar(255),
+  url                           varchar(255),
+  constraint pk_feeds primary key (id)
+);
+
+create table feed_articles (
+  id                            integer auto_increment not null,
+  title                         varchar(255),
+  content                       varchar(255),
+  feed_id                       integer,
+  constraint pk_feed_articles primary key (id)
+);
+
 create table users (
   id                            integer auto_increment not null,
   username                      varchar(255),
   password                      varchar(255),
-  mailol                        varchar(255),
+  mail                          varchar(255),
   constraint pk_users primary key (id)
 );
 
+alter table feed_articles add constraint fk_feed_articles_feed_id foreign key (feed_id) references feeds (id) on delete restrict on update restrict;
+create index ix_feed_articles_feed_id on feed_articles (feed_id);
+
 
 # --- !Downs
+
+alter table feed_articles drop foreign key fk_feed_articles_feed_id;
+drop index ix_feed_articles_feed_id on feed_articles;
+
+drop table if exists feeds;
+
+drop table if exists feed_articles;
 
 drop table if exists users;
 

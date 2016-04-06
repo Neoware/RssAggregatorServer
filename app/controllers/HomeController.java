@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Feed;
+import models.FeedArticle;
 import models.User;
 import play.*;
 import play.mvc.*;
@@ -23,8 +24,8 @@ public class HomeController extends Controller {
      */
     public Result index() {
 
-        List<Feed> feeds = Feed.find.all();
-        return ok(feeds.get(0).getUrl());
+        List<FeedArticle> feedArticles = FeedArticle.find.all();
+        return ok(feedArticles.get(0).getFeed().getName());
     }
 
 }
