@@ -1,11 +1,11 @@
 package models;
 
+import com.avaje.ebean.LikeType;
 import com.avaje.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Neoware on 4/6/2016.
@@ -18,9 +18,11 @@ public class FeedArticle {
     private int id;
     private String title;
     private String content;
-    private int feed_id;
+    private int feedId;
     @ManyToOne()
     private Feed feed;
+    @OneToMany(mappedBy = "feedArticle")
+    private List<UserArticle> userArticles = new ArrayList<>();
     public static final Model.Finder<Integer,FeedArticle> find = new Model.Finder<>( FeedArticle.class );
 
     //region getters and setters
@@ -48,12 +50,12 @@ public class FeedArticle {
         this.content = content;
     }
 
-    public int getFeed_id() {
-        return feed_id;
+    public int getFeedId() {
+        return feedId;
     }
 
-    public void setFeed_id(int feed_id) {
-        this.feed_id = feed_id;
+    public void setFeedId(int feed_id) {
+        this.feedId = feed_id;
     }
 
     public Feed getFeed() {
@@ -62,6 +64,14 @@ public class FeedArticle {
 
     public void setFeed(Feed feed) {
         this.feed = feed;
+    }
+
+    public List<UserArticle> getUserArticles() {
+        return userArticles;
+    }
+
+    public void setUserArticles(List<UserArticle> userArticles) {
+        this.userArticles = userArticles;
     }
     //endregion
 }

@@ -5,7 +5,9 @@ import com.avaje.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +23,10 @@ public class User extends Model {
     private String username;
     private String password;
     private String mail;
+    @OneToMany(mappedBy = "user")
+    private List<UserSubscription> userSubscriptions = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<UserArticle> userArticles = new ArrayList<>();
     public static final Finder<Integer,User> find = new Finder<>( User.class );
 
 
@@ -55,6 +61,22 @@ public class User extends Model {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public List<UserSubscription> getUserSubscriptions() {
+        return userSubscriptions;
+    }
+
+    public void setUserSubscriptions(List<UserSubscription> userSubscriptions) {
+        this.userSubscriptions = userSubscriptions;
+    }
+
+    public List<UserArticle> getUserArticles() {
+        return userArticles;
+    }
+
+    public void setUserArticles(List<UserArticle> userArticles) {
+        this.userArticles = userArticles;
     }
     //endregion
 
