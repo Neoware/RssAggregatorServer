@@ -4,8 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.common.collect.ImmutableMap;
+import models.User;
+import models.UserDao;
 import org.junit.*;
 
+import play.db.Database;
+import play.db.Databases;
 import play.mvc.*;
 import play.test.*;
 import play.data.DynamicForm;
@@ -28,6 +33,9 @@ import static org.junit.Assert.*;
  */
 public class ApplicationTest {
 
+    Database database;
+
+
     @Test
     public void simpleCheck() {
         int a = 1 + 1;
@@ -41,5 +49,15 @@ public class ApplicationTest {
         assertTrue(html.body().contains("Your new application is ready."));
     }
 
+    @Test
+    public void getUserFromDb(){
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+                UserDao userDao = new UserDao();
+                List<User> users = userDao.findAll();
+                assertEquals("Failed to retrieve user", "neoware", users.get(0).getUsername());
+            }
+        });
+}
 
 }
