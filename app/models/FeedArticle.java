@@ -23,7 +23,6 @@ public class FeedArticle {
     private Feed feed;
     @OneToMany(mappedBy = "feedArticle")
     private List<UserArticle> userArticles = new ArrayList<>();
-    public static final Model.Finder<Integer,FeedArticle> find = new Model.Finder<>( FeedArticle.class );
 
     //region getters and setters
     public int getId() {

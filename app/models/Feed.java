@@ -25,7 +25,6 @@ public class Feed {
     private List<FeedArticle> feedArticles = new ArrayList<>();
     @OneToMany(mappedBy = "feed")
     private List<UserSubscription> userSubscriptions = new ArrayList<>();
-    public static final Model.Finder<Integer,Feed> find = new Model.Finder<>( Feed.class );
 
     //region getters and setters
     public String getUrl() {

@@ -27,8 +27,6 @@ public class User extends Model {
     private List<UserSubscription> userSubscriptions = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<UserArticle> userArticles = new ArrayList<>();
-    public static final Finder<Integer,User> find = new Finder<>( User.class );
-
 
     //region getters and setters
     public int getId() {
