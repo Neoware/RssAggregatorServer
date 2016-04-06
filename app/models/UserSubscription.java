@@ -1,9 +1,6 @@
 package models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by Neoware on 4/6/2016.
@@ -14,11 +11,11 @@ public class UserSubscription {
 
     @Id
     private int id;
-    private int user_id;
-    private int feed_id;
     @ManyToOne()
+    @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne()
+    @JoinColumn(name = "feed_id")
     private Feed feed;
 
     //region getters and setters
@@ -28,22 +25,6 @@ public class UserSubscription {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public int getFeed_id() {
-        return feed_id;
-    }
-
-    public void setFeed_id(int feed_id) {
-        this.feed_id = feed_id;
     }
 
     public User getUser() {

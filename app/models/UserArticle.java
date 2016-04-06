@@ -1,9 +1,6 @@
 package models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by Neoware on 4/6/2016.
@@ -14,11 +11,11 @@ import javax.persistence.Table;
 public class UserArticle {
     @Id
     private int id;
-    private int userId;
     @ManyToOne()
+    @JoinColumn(name = "user_id")
     private User user;
-    private int feedArticleId;
     @ManyToOne()
+    @JoinColumn(name = "feed_articles_id")
     private FeedArticle feedArticle;
     private boolean isRead;
 
@@ -31,13 +28,6 @@ public class UserArticle {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
     public User getUser() {
         return user;
@@ -47,13 +37,6 @@ public class UserArticle {
         this.user = user;
     }
 
-    public int getFeedArticleId() {
-        return feedArticleId;
-    }
-
-    public void setFeedArticleId(int feedArticleId) {
-        this.feedArticleId = feedArticleId;
-    }
 
     public FeedArticle getFeedArticle() {
         return feedArticle;

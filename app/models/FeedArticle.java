@@ -18,8 +18,8 @@ public class FeedArticle {
     private int id;
     private String title;
     private String content;
-    private int feedId;
     @ManyToOne()
+    @JoinColumn(name = "feed_id")
     private Feed feed;
     @OneToMany(mappedBy = "feedArticle")
     private List<UserArticle> userArticles = new ArrayList<>();
@@ -47,14 +47,6 @@ public class FeedArticle {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public int getFeedId() {
-        return feedId;
-    }
-
-    public void setFeedId(int feed_id) {
-        this.feedId = feed_id;
     }
 
     public Feed getFeed() {
