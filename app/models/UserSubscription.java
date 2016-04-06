@@ -3,11 +3,13 @@ package models;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * Created by Neoware on 4/6/2016.
  */
 @Entity
+@Table(name="user_subscriptions")
 public class UserSubscription {
 
     @Id

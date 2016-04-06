@@ -26,8 +26,35 @@ create table users (
   constraint pk_users primary key (id)
 );
 
+create table user_articles (
+  id                            integer auto_increment not null,
+  user_id                       integer,
+  feed_article_id               integer,
+  is_read                       tinyint(1) default 0,
+  constraint pk_user_articles primary key (id)
+);
+
+create table user_subscriptions (
+  id                            integer auto_increment not null,
+  user_id                       integer,
+  feed_id                       integer,
+  constraint pk_user_subscriptions primary key (id)
+);
+
 alter table feed_articles add constraint fk_feed_articles_feed_id foreign key (feed_id) references feeds (id) on delete restrict on update restrict;
 create index ix_feed_articles_feed_id on feed_articles (feed_id);
+
+alter table user_articles add constraint fk_user_articles_user_id foreign key (user_id) references users (id) on delete restrict on update restrict;
+create index ix_user_articles_user_id on user_articles (user_id);
+
+alter table user_articles add constraint fk_user_articles_feed_article_id foreign key (feed_article_id) references feed_articles (id) on delete restrict on update restrict;
+create index ix_user_articles_feed_article_id on user_articles (feed_article_id);
+
+alter table user_subscriptions add constraint fk_user_subscriptions_user_id foreign key (user_id) references users (id) on delete restrict on update restrict;
+create index ix_user_subscriptions_user_id on user_subscriptions (user_id);
+
+alter table user_subscriptions add constraint fk_user_subscriptions_feed_id foreign key (feed_id) references feeds (id) on delete restrict on update restrict;
+create index ix_user_subscriptions_feed_id on user_subscriptions (feed_id);
 
 
 # --- !Downs
@@ -35,9 +62,25 @@ create index ix_feed_articles_feed_id on feed_articles (feed_id);
 alter table feed_articles drop foreign key fk_feed_articles_feed_id;
 drop index ix_feed_articles_feed_id on feed_articles;
 
+alter table user_articles drop foreign key fk_user_articles_user_id;
+drop index ix_user_articles_user_id on user_articles;
+
+alter table user_articles drop foreign key fk_user_articles_feed_article_id;
+drop index ix_user_articles_feed_article_id on user_articles;
+
+alter table user_subscriptions drop foreign key fk_user_subscriptions_user_id;
+drop index ix_user_subscriptions_user_id on user_subscriptions;
+
+alter table user_subscriptions drop foreign key fk_user_subscriptions_feed_id;
+drop index ix_user_subscriptions_feed_id on user_subscriptions;
+
 drop table if exists feeds;
 
 drop table if exists feed_articles;
 
 drop table if exists users;
+
+drop table if exists user_articles;
+
+drop table if exists user_subscriptions;
 

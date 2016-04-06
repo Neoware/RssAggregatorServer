@@ -23,9 +23,7 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-
-        List<FeedArticle> feedArticles = FeedArticle.find.all();
-        return ok(feedArticles.get(0).getFeed().getName());
+        return ok(index.render("Coucou"));
     }
 
 }

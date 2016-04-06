@@ -7,4 +7,6 @@ import com.avaje.ebean.Model;
  */
 public class UserSubscriptionDao {
     public static final Model.Finder<Integer,UserSubscription> find = new Model.Finder<>( UserSubscription.class );
+
+
 }
