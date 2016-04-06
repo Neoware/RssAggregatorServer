@@ -1,9 +1,13 @@
 package controllers;
 
+import models.Feed;
+import models.User;
 import play.*;
 import play.mvc.*;
 
 import views.html.*;
+
+import java.util.List;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -18,7 +22,9 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        return ok(index.render("Hello world"));
+
+        List<Feed> feeds = Feed.find.all();
+        return ok(feeds.get(0).getUrl());
     }
 
 }
