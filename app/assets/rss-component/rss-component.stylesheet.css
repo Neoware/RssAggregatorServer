@@ -1,7 +1,13 @@
 
+.rss-side-panel {
+  width: 300px;
+  z-index: 2;
+}
+
 .logo {
   width: 100%;
   height: 20%;
+  min-height: 120px;
   background-color: #3BBD41;
   position: relative;
 }
@@ -22,6 +28,7 @@
 
 .feed-list {
   height: 80%;
+  z-index: 1;
 }
 
 .feed-list .icon-feed {

@@ -1,5 +1,5 @@
 <div class="rss-component" layout="row" layout-fill>
-  <div style="width: 300px;" class="md-whiteframe-1dp" hide show-gt-sm>
+  <div class="rss-side-panel md-whiteframe-2dp" hide show-gt-sm>
     <div class='logo'>
       <div class='logo-img'></div>
     </div>
@@ -11,7 +11,7 @@
         <md-subheader class="md-no-sticky">2 line item</md-subheader>
         <md-list-item 
           ng-repeat="(key, feed) in feeds"
-          class="md-2-line" ng-click="oto()">
+          class="md-2-line" ng-click="selectFeed(feed)">
           <ng-md-icon icon="rss_feed" class="icon-feed"></ng-md-icon>
           <div class="md-list-item-text">
             <h3>{{ feed.name }}</h3>
@@ -29,5 +29,25 @@
   </div>
 
   <div flex>
+    <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <h2>
+          <span>Feeds</span>
+        </h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+
+    <md-content class="feed-list">
+      <md-list flex>
+        <md-subheader class="md-no-sticky">C'est qui le papa?</md-subheader>
+        <div layout-padding>
+          <h2>{{ selected.name }}</h2>
+          <p>{{ selected.content }}</p>
+        </div>
+        <md-divider></md-divider>
+      </md-list>
+    </md-content>
+
   </div>
 </div>
