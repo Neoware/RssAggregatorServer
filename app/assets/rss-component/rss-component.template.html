@@ -3,6 +3,29 @@
     <div class='logo'>
       <div class='logo-img'></div>
     </div>
+
+
+
+    <md-content class="feed-list">
+      <md-list flex>
+        <md-subheader class="md-no-sticky">2 line item</md-subheader>
+        <md-list-item 
+          ng-repeat="(key, feed) in feeds"
+          class="md-2-line" ng-click="oto()">
+          <ng-md-icon icon="rss_feed" class="icon-feed"></ng-md-icon>
+          <div class="md-list-item-text">
+            <h3>{{ feed.name }}</h3>
+            <h4>{{ feed.content }}</h4>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+      </md-list>
+    </md-content>
+
+
+
+
+
   </div>
 
   <div flex>
