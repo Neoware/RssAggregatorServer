@@ -22,6 +22,8 @@ public class UserArticle extends Model implements Serializable{
     private FeedArticle feedArticle;
     private boolean isRead;
 
+
+
     //region getters and setters
     public int getId() {
         return id;

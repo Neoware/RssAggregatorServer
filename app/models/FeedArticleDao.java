@@ -13,4 +13,14 @@ public class FeedArticleDao {
     public List<FeedArticle> findAll(){
         return find.all();
     }
+
+    public FeedArticle findUserArticleByArticleId(int _article_id){
+        return find.byId(_article_id);
+    }
+
+
+    public List<FeedArticle> findTitlesByFeedId(int _feed_id){
+        List<FeedArticle> temp = find.where().eq("feed_id", _feed_id).select("title").findList();
+        return temp;
+    }
 }

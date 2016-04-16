@@ -25,6 +25,8 @@ public class FeedArticle extends Model implements Serializable{
     @OneToMany(mappedBy = "feedArticle")
     private List<UserArticle> userArticles = new ArrayList<>();
 
+
+
     //region getters and setters
     public int getId() {
         return id;

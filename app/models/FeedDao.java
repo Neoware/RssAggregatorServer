@@ -14,4 +14,9 @@ public class FeedDao {
         return find.all();
     }
 
+    public List<FeedArticle> findArticlesbyFeedId(int _feed_id){
+        Feed temp = find.byId(_feed_id);
+        return temp.getFeedArticles();
+    }
+
 }

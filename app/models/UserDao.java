@@ -23,11 +23,32 @@ public class UserDao {
         return find.byId(_id);
     }
 
+    public List<UserSubscription> FindUserSubscriptionsByUserId(int _id){
+        User temp = find.byId(_id);
+        return temp.getUserSubscriptions();
+    }
+
+    public List<UserArticle> FindUserArticlesByUserId(int _id){
+        User temp = find.byId(_id);
+        return temp.getUserArticles();
+    }
+
+
+
+
     public void createUser(User _user){
         _user.save();
     }
 
+    public void updateUser(User _user{
+        _user.update();
+    }
+
     public void deleteUser(User _user){
         _user.delete();
+    }
+
+    public void deleteUserById(int _id){
+        find.deleteById(_id);
     }
 }
