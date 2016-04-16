@@ -39,8 +39,8 @@ public class ApplicationTest {
         running(fakeApplication(), new Runnable() {
             public void run() {
                 UserDao userDao = new UserDao();
-                List<User> users = userDao.findAll();
-                assertEquals("Failed to retrieve user", "neoware", users.get(0).getUsername());
+                User check = userDao.FindUserById(1);
+                assertEquals("Failed to retrieve user", "neoware", check.getUsername());
                 User test = new User("user", "password", "testuser@gmail.com");
                 userDao.createUser(test);
                 User created = userDao.findUserByUsername("user");

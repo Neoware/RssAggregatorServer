@@ -19,6 +19,10 @@ public class UserDao {
         return find.where().eq("username", _name).findUnique();
     }
 
+    public User FindUserById(int _id){
+        return find.byId(_id);
+    }
+
     public void createUser(User _user){
         _user.save();
     }

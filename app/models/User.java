@@ -17,11 +17,11 @@ import java.util.List;
 public class User extends Model implements Serializable{
 
     @Id
-    private Long id;
+    private int id;
     @Column(unique = true)
     private String username;
-    @Column(unique = true)
     private String password;
+    @Column(unique = true)
     private String mail;
     @OneToMany(mappedBy = "user")
     private List<UserSubscription> userSubscriptions = new ArrayList<>();
@@ -35,11 +35,11 @@ public class User extends Model implements Serializable{
     }
 
     //region getters and setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
