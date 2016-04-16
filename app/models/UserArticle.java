@@ -1,6 +1,9 @@
 package models;
 
+import com.avaje.ebean.Model;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Neoware on 4/6/2016.
@@ -8,7 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="user_articles")
-public class UserArticle {
+public class UserArticle extends Model implements Serializable{
     @Id
     private int id;
     @ManyToOne()

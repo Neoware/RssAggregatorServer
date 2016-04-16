@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Entity
 @Table(name="feeds")
-public class Feed {
+public class Feed extends Model implements Serializable {
 
     @Id
     private int id;

@@ -14,4 +14,16 @@ public class UserDao {
     public List<User> findAll(){
         return find.all();
     }
+
+    public User findUserByUsername(String _name){
+        return find.where().eq("username", _name).findUnique();
+    }
+
+    public void createUser(User _user){
+        _user.save();
+    }
+
+    public void deleteUser(User _user){
+        _user.delete();
+    }
 }

@@ -4,6 +4,7 @@ import com.avaje.ebean.LikeType;
 import com.avaje.ebean.Model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name="feed_articles")
-public class FeedArticle {
+public class FeedArticle extends Model implements Serializable{
     @Id
     private int id;
     private String title;

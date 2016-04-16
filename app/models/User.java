@@ -3,10 +3,8 @@ package models;
 
 import com.avaje.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +14,13 @@ import java.util.List;
 
 @Entity
 @Table(name="users")
-public class User extends Model {
+public class User extends Model implements Serializable{
 
     @Id
-    private int id;
+    private Long id;
+    @Column(unique = true)
     private String username;
+    @Column(unique = true)
     private String password;
     private String mail;
     @OneToMany(mappedBy = "user")
@@ -28,12 +28,18 @@ public class User extends Model {
     @OneToMany(mappedBy = "user")
     private List<UserArticle> userArticles = new ArrayList<>();
 
+    public User(String _username, String _password, String _mail){
+        username = _username;
+        password = _password;
+        mail = _mail;
+    }
+
     //region getters and setters
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

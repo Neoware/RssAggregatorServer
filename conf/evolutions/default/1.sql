@@ -19,16 +19,18 @@ create table feed_articles (
 );
 
 create table users (
-  id                            integer auto_increment not null,
+  id                            bigint auto_increment not null,
   username                      varchar(255),
   password                      varchar(255),
   mail                          varchar(255),
+  constraint uq_users_username unique (username),
+  constraint uq_users_password unique (password),
   constraint pk_users primary key (id)
 );
 
 create table user_articles (
   id                            integer auto_increment not null,
-  user_id                       integer,
+  user_id                       bigint,
   feed_articles_id              integer,
   is_read                       tinyint(1) default 0,
   constraint pk_user_articles primary key (id)
@@ -36,7 +38,7 @@ create table user_articles (
 
 create table user_subscriptions (
   id                            integer auto_increment not null,
-  user_id                       integer,
+  user_id                       bigint,
   feed_id                       integer,
   constraint pk_user_subscriptions primary key (id)
 );
