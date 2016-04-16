@@ -23,10 +23,9 @@ public class UserApi extends Controller {
             Logger.error(e.getMessage());
             return badRequest(new String("Error in processing user list"));
         }
-
     }
 
-    public static Result read(Long id) {
+    public static Result read(Integer id) {
         try {
             // User currentUser = new List(UserDao.find(id))
             // gson.toJson(currentUser)
@@ -75,7 +74,7 @@ public class UserApi extends Controller {
         return ok(String.valueOf(user.id));
     }
     
-    public static Result delete(Long id) {
+    public static Result delete(Integer id) {
         try {
             // User currentUser = new List(UserDao.find(id))
             // gson.toJson(currentUser)
