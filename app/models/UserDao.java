@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Model;
 
 import java.util.List;
+import models.User;
 
 /**
  * Created by Neoware on 4/6/2016.
@@ -25,12 +26,18 @@ public class UserDao {
 
     public List<UserSubscription> FindUserSubscriptionsByUserId(int _id){
         User temp = find.byId(_id);
-        return temp.getUserSubscriptions();
+        if (temp != null)
+            return temp.getUserSubscriptions();
+        else
+            return null;
     }
 
     public List<UserArticle> FindUserArticlesByUserId(int _id){
         User temp = find.byId(_id);
-        return temp.getUserArticles();
+        if (temp != null)
+            return temp.getUserArticles();
+        else
+            return null;
     }
 
 
@@ -40,7 +47,7 @@ public class UserDao {
         _user.save();
     }
 
-    public void updateUser(User _user{
+    public void updateUser(User _user){
         _user.update();
     }
 

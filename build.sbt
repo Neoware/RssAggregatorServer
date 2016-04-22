@@ -16,3 +16,5 @@ libraryDependencies ++= Seq(
   "mysql" % "mysql-connector-java" % "5.1.36"
 )
 
+//enablePlugins(JavaAppPackaging)
+//enablePlugins(DockerPlugin)
