@@ -1,0 +1,52 @@
+
+
+/*
+// USER PART
+*/
+
+// Create a user
+POST    /api/users/create/:username/:password/:mail         api.UserApi.create(username: String, password: String, mail: String)
+
+// Delete the authenticated user
+POST    /api/users/delete                                   api.UserApi.delete
+
+// Update a User
+POST    /api/users/update/:username/:password/:mail         api.UserApi.update(username: String, password: String, mail: String)
+
+
+
+/*
+// FEED PART
+*/
+
+// Subscribe to a new rss
+POST    /api/subscribe/:url                                 api.FeedApi.subscribe(url: String)
+
+// Unsubscribe from a rss
+POST    /api/unsubscribe/:url                               api.FeedApi.unsubscribe(url: String)
+
+// Mark an article as read
+POST    /api/article/read/:articleId                        api.FeedApi.markAsRead(articleId: Integer)
+
+// Mark an article as unread
+POST    /api/article/unread/:articleId                      api.FeedApi.maskAsUnRead(articleId: Integer)
+
+// Get all titles and status read/unread for all feeds
+GET     /api/feeds/title/all                                      api.FeedApi.getTitles
+
+// Get all content of all articles of all feed
+GET     /api/feed/all                                              api.FeedApi.getArticles
+
+// Get all titles and status read/unread of all articles for one feed
+GET     /api/feed/titles/:feed_id                                  api.FeedApi.getFeedTitles
+
+// Get all content of all articles for one feed
+GET     /api/feed/content/:feed_id                              api.FeedApi.getFeedArticles
+
+// Get the content of an article
+GET     /api/article/content/:articleId                     api.FeedApi.getArticle
+
+// Get all subscriptions
+GET     /api/subscriptions                                   api.FeedApi.getSubscriptions
+
+
