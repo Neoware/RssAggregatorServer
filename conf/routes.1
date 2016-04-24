@@ -38,18 +38,16 @@ GET     /api/feeds/title/all                                      api.FeedApi.ge
 GET     /api/feed/all                                              api.FeedApi.getArticles
 
 // Get all titles and status read/unread of all articles for one feed
-GET     /api/feed/titles/:feed_id                                  api.FeedApi.getFeedTitles
+GET     /api/feed/titles/:feedId                                  api.FeedApi.getFeedTitles(feedId: Integer)
 
 // Get all content of all articles for one feed
-GET     /api/feed/content/:feed_id                              api.FeedApi.getFeedArticles
+GET     /api/feed/content/:feedId                              api.FeedApi.getFeedArticles(feedId: Integer)
 
 // Get the content of an article
-GET     /api/article/content/:articleId                                 api.FeedApi.getArticle
+GET     /api/article/content/:articleId                                 api.FeedApi.getArticle(articleId: Integer)
 
 // Get title and status read/unread of an article
-GET     /api/article/title/:articleId                                 api.FeedApi.getArticleTitle
+GET     /api/article/title/:articleId                                 api.FeedApi.getArticleTitle(articleId: Integer)
 
 // Get all subscriptions
 GET     /api/subscriptions                                   api.FeedApi.getSubscriptions
-
-
