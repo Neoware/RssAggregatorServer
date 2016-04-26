@@ -15,7 +15,8 @@ libraryDependencies ++= Seq(
 libraryDependencies ++= Seq(
   "mysql" % "mysql-connector-java" % "5.1.36",
   "jdom" % "jdom" % "1.1",
-  "rome" % "rome" % "1.0"
+  "rome" % "rome" % "1.0",
+  "com.google.code.gson" % "gson" % "2.6.2"
 )
 
 //enablePlugins(JavaAppPackaging)

@@ -47,7 +47,8 @@ public class UserApi extends Controller {
         Logger.info("C'est pas legal");
         // User.create(user);
         Logger.info("Sending...");
-        return ok(String.valueOf(user.id));
+        //return ok(String.valueOf(user.id));
+        return ok("User Saved");
     }
 
     @BodyParser.Of(BodyParser.Json.class)
@@ -67,7 +68,8 @@ public class UserApi extends Controller {
         Logger.info("C'est pas legal");
         // User.create(user);
         Logger.info("Sending...");
-        return ok(String.valueOf(user.id));
+        //return ok(String.valueOf(user.id));
+        return ok("User updated");
     }
     
     public static Result delete(Integer id) {
