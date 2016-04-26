@@ -21,37 +21,105 @@ public class FeedApi extends Controller {
 
     }
 
-    public static Result read(Integer id) {
+    public static Result subscribe(String url) {
         try {
-            // Feed currentFeed = new List(FeedDao.find(id))
-            // gson.toJson(currentFeed)
-            return ok(new String("Finding feed with  id " + id));
+            // List feedList = new List(FeedDao.findAll())
+            // gson.toJson(feedList)
+            return ok(new String("Succesfully subscribed"));
         } catch (Exception e) {
             Logger.error(e.getMessage());
-            return badRequest(new String("Research on feed item failed"));
+            return badRequest(new String("Error while subscribing to feed url"));
+        }
+
+    }
+
+    public static Result unsubscribe(String url) {
+        try {
+            // List feedList = new List(FeedDao.findAll())
+            // gson.toJson(feedList)
+            return ok(new String("Succesfully unsubscribed"));
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest(new String("Error while unsubscribing to feed url"));
         }
     }
 
-    public static Result update(Integer id) {
-        return ok("updating a subscription");
-    }
-    public static  Result getFeedTitles(Integer id, Integer fid) {
-        return ok("Trying to get the titles of all articles");
-    }
-
-    public static Result reloadFeeds(Integer id) {
-        return ok("Reload feeds...");
-    }
-
-    public static Result getArticle(Integer id, Integer fid) {
-        return ok("get Integer calld");
-    }
-
     public static Result markAsRead(Integer id, Integer fid) {
-        return ok("Marking article as read");
+        try {
+            // List feedList = new List(FeedDao.findAll())
+            // gson.toJson(feedList)
+            return ok("Article marked as read");
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest("Error in marking article");
+        }
     }
 
-    public static Result markAsUnRead(Integer id, Integer fid) {
-        return ok("Marking an article as unread");
+    public static Result markAsUnRead(Integer fid) {
+        try {
+            // List feedList = new List(FeedDao.findAll())
+            // gson.toJson(feedList)
+            return ok("Article marked as unread");
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest("Error in marking article");
+        }
+    }
+
+    public static  Result getFeedTitles(Integer fid) {
+        try {
+            // List feedList = new List(FeedDao.findAll())
+            // gson.toJson(feedList)
+            return ok("Sample Feed List");
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest("Error in processing feed list");
+        }
+    }
+
+    public static Result getFeedArticles (Integer fid) {
+        try {
+            // List feedList = new List(FeedDao.findAll())
+            // gson.toJson(feedList)
+            return ok("Sample Feed List");
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest("Error in processing feed list");
+        }
+
+    }
+
+    public static Result getArticle(Integer articleId) {
+        try {
+            // List feedList = new List(FeedDao.findAll())
+            // gson.toJson(feedList)
+            return ok("Getting");
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest("Error in processing feed list");
+        }
+    }
+
+    public static Result getArticleTitle (Integer articleId) {
+        try {
+            // List feedList = new List(FeedDao.findAll())
+            // gson.toJson(feedList)
+            return ok("Getting");
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest("Error in processing feed list");
+        }
+    }
+
+    public static Result getSubscriptions () {
+        try {
+            // List feedList = new List(FeedDao.findAll())
+            // gson.toJson(feedList)
+            return ok("Sample Feed List");
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest("Error in processing feed list");
+        }
+
     }
 }

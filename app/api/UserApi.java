@@ -9,30 +9,24 @@ import play.mvc.Controller;
 
 import play.mvc.Result;
 
-/**
- * Created by Neti on 13/04/2016.
- */
-
 public class UserApi extends Controller {
     public static Result index () {
         try {
             // List userList = new List(UserDao.findAll())
             // gson.toJson(userList)
-            return ok(new String("Sample user List"));
+            return ok("Sample user List");
         } catch (Exception e) {
             Logger.error(e.getMessage());
-            return badRequest(new String("Error in processing user list"));
+            return badRequest("Error in processing user list");
         }
     }
 
-    public static Result read(Integer id) {
+    public static Result read() {
         try {
-            // User currentUser = new List(UserDao.find(id))
-            // gson.toJson(currentUser)
-            return ok(new String("Finding user of id " + id));
+            return ok("Finding user of id ");
         } catch (Exception e) {
             Logger.error(e.getMessage());
-            return badRequest(new String("Research failed"));
+            return badRequest("Research failed");
         }
     }
 
@@ -41,13 +35,14 @@ public class UserApi extends Controller {
         JsonNode json = request().body().asJson();
         Gson gson = new Gson();
         Logger.info("Gson Unpacking... USER");
-        String tmp = new String(json.toString());
+        String tmp = json.toString();
         User user = new User();
         Logger.info(tmp);
         try {
             user = gson.fromJson(tmp, models.User.class);
         } catch (Exception e) {
             Logger.error(e.getMessage());
+            return badRequest(e.getMessage());
         }
         Logger.info("C'est pas legal");
         // User.create(user);
@@ -60,13 +55,14 @@ public class UserApi extends Controller {
         JsonNode json = request().body().asJson();
         Gson gson = new Gson();
         Logger.info("Gson Unpacking... USER");
-        String tmp = new String(json.toString());
+        String tmp = json.toString();
         User user = new User();
         Logger.info(json.toString());
         try {
             user = gson.fromJson(tmp, models.User.class);
         } catch (Exception e) {
             Logger.error(e.getMessage());
+            return badRequest(e.getMessage());
         }
         Logger.info("C'est pas legal");
         // User.create(user);
@@ -78,10 +74,10 @@ public class UserApi extends Controller {
         try {
             // User currentUser = new List(UserDao.find(id))
             // gson.toJson(currentUser)
-            return ok(new String("Finding user of id " + id));
+            return ok("Finding user of id " + id);
         } catch (Exception e){
             Logger.error(e.getMessage());
-            return badRequest(new String("Finding user of id " + id));
+            return badRequest("Finding user of id " + id);
         }
     }
 }
