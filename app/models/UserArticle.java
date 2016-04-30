@@ -24,6 +24,7 @@ public class UserArticle extends Model implements Serializable{
 
 
 
+
     //region getters and setters
     public int getId() {
         return id;

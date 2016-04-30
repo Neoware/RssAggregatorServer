@@ -95,6 +95,23 @@ public class ApplicationTest {
         });
     }
 
+    @Test
+    public void TestFeedServiceReadStatus(){
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+                FeedService feedService = new FeedService();
+                // Try to mark as read
+                feedService.MarkAsRead("neoware", 1);
+                // Try to mark as unread
+                feedService.MarkAsUnread("neoware", 3);
+                // Try to mark as read an article that doesn't belong to this user
+                feedService.MarkAsRead("neoware", 5);
+                // Try to mark as unread an article that doesn't belong to this user
+                feedService.MarkAsUnread("neoware", 6);
+            }
+        });
+    }
+
 
 }
 

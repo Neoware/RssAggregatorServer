@@ -57,8 +57,7 @@ public class SubscriptionService {
 
             Iterator<UserArticle> i = userArticles.iterator();
             while (i.hasNext()) {
-                UserArticle userArticle = i.next(); // must be called before you can call i.remove()
-                // Do something
+                UserArticle userArticle = i.next();
                 if (userArticle.getFeedArticle().getFeed().getId() == tempFeed.getId())
                 i.remove();
             }
