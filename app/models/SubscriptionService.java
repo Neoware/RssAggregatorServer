@@ -82,7 +82,7 @@ public class SubscriptionService {
         Iterator<UserSubscription> i = userSubscriptions.iterator();
         while (i.hasNext()) {
             UserSubscription userSubscription = i.next();
-            HeaderSubscription toAdd = new HeaderSubscription(userSubscription.getFeed().getName(), userSubscription.getFeed().getUrl());
+            HeaderSubscription toAdd = new HeaderSubscription(userSubscription.getFeed().getName(), userSubscription.getFeed().getUrl(), userSubscription.getFeed().getId());
             headerSubscriptions.add(toAdd);
         }
         return headerSubscriptions;

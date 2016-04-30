@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableMap;
 import models.*;
 import org.junit.*;
 
+import play.api.libs.iteratee.Traversable;
 import play.db.Database;
 import play.db.Databases;
 import play.mvc.*;
@@ -54,19 +55,14 @@ public class ApplicationTest {
         running(fakeApplication(), new Runnable() {
             public void run() {
                 SubscriptionService subscriptionService = new SubscriptionService();
-                //Subscribe someone
-                subscriptionService.Subscribe("neoware", "www.test-feed/rss");
-                //Try to subscribe to the same feed again
-                subscriptionService.Subscribe("neoware", "www.test-feed/rss");
                 //Try to subscribe to a non existing feed
                 subscriptionService.Subscribe("neoware", "www.fake/rss");
+                //Try to subscribe to the same feed again
+                subscriptionService.Subscribe("neoware", "www.fake/rss");
                 //Delete fake feed (will delete subscriptions through foreign key cascade)
+                subscriptionService.Unsubscribe("neoware", "www.fake/rss");
                 FeedDao feedDao = new FeedDao();
                 feedDao.Delete("www.fake/rss");
-                //Unsubscribe for the feed
-                subscriptionService.Unsubscribe("neoware","www.test-feed/rss");
-                // Try to unsubscribe for an already unsubscribed feed
-                subscriptionService.Unsubscribe("neoware","www.test-feed/rss");
             }
         });
     }
@@ -108,6 +104,63 @@ public class ApplicationTest {
                 feedService.MarkAsRead("neoware", 5);
                 // Try to mark as unread an article that doesn't belong to this user
                 feedService.MarkAsUnread("neoware", 6);
+            }
+        });
+    }
+
+    @Test
+    public void TestFeedServiceGetHeader(){
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+                List <HeaderArticle> temps = new ArrayList<>();
+                FeedService feedService = new FeedService();
+                temps = feedService.GetAllHeaderForAllFeed("neoware");
+                for ( HeaderArticle temp : temps){
+                    System.out.println(temp.toString());
+                }
+                temps = feedService.GetAllHeaderForOneFeed("neoware", 1);
+                for ( HeaderArticle temp : temps){
+                    System.out.println(temp.toString());
+                }
+                HeaderArticle single = feedService.GetHeaderForOneArticle("neoware", 1);
+                if (single != null)
+                System.out.println(single.toString());
+            }
+        });
+    }
+
+    @Test
+    public void TestFeedServiceGetContent(){
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+                List <FeedArticle> temps = new ArrayList<>();
+                FeedService feedService = new FeedService();
+
+               temps = feedService.GetContentForOneFeed("neoware", 1);
+                for ( FeedArticle temp : temps){
+                    System.out.println(temp.toString());
+                }
+                temps = feedService.GetContentForAllFeed("neoware");
+                for ( FeedArticle temp : temps){
+                    System.out.println(temp.toString());
+                }
+                FeedArticle single = feedService.GetContentForOneArticle("neoware", 1);
+                if (single != null)
+                    System.out.println(single.toString());
+            }
+        });
+    }
+
+    @Test
+    public void TestGetSubscription(){
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+            List <HeaderSubscription> temps = new ArrayList<>();
+                SubscriptionService subscriptionService = new SubscriptionService();
+                 temps = subscriptionService.GetSubscriptions("neoware");
+                for (HeaderSubscription temp : temps){
+                    System.out.println(temp.toString());
+                }
             }
         });
     }

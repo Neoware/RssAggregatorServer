@@ -21,7 +21,14 @@ public class UserSubscription extends Model implements Serializable {
     @JoinColumn(name = "feed_id")
     private Feed feed;
 
-
+    @Override
+    public String toString() {
+        return "UserSubscription{" +
+                "id=" + id +
+                ", user=" + user +
+                ", feed=" + feed +
+                '}';
+    }
 
     //region getters and setters
     public int getId() {

@@ -48,7 +48,7 @@ public class FeedService {
         Iterator<UserArticle> i = userArticles.iterator();
         while (i.hasNext()) {
             UserArticle userArticle = i.next();
-            HeaderArticle toAdd = new HeaderArticle(userArticle.isRead(), userArticle.getFeedArticle().getTitle());
+            HeaderArticle toAdd = new HeaderArticle(userArticle.getFeedArticle().getId(), userArticle.isRead(), userArticle.getFeedArticle().getTitle());
             headerArticles.add(toAdd);
         }
     return headerArticles;
@@ -62,7 +62,7 @@ public class FeedService {
         while (i.hasNext()) {
             UserArticle userArticle = i.next();
             if (userArticle.getFeedArticle().getFeed().getId() == feedId) {
-                HeaderArticle toAdd = new HeaderArticle(userArticle.isRead(), userArticle.getFeedArticle().getTitle());
+                HeaderArticle toAdd = new HeaderArticle(userArticle.getFeedArticle().getId(), userArticle.isRead(), userArticle.getFeedArticle().getTitle());
                 headerArticles.add(toAdd);
             }
         }
@@ -70,9 +70,10 @@ public class FeedService {
     }
     public HeaderArticle GetHeaderForOneArticle(String username, int articleId){
         User temp = userDao.findUserByUsername(username);
-        UserArticle userArticle = userArticleDao.findByUserAndArticleId(temp.getId(), articleId);
+        UserArticle userArticle;
+        userArticle = userArticleDao.findByUserAndArticleId(temp.getId(), articleId);
         if (userArticle != null && temp != null){
-            HeaderArticle headerArticle = new HeaderArticle(userArticle.isRead(), userArticle.getFeedArticle().getTitle());
+            HeaderArticle headerArticle = new HeaderArticle(userArticle.getFeedArticle().getId(), userArticle.isRead(), userArticle.getFeedArticle().getTitle());
             return headerArticle;
         }
         else
@@ -80,14 +81,16 @@ public class FeedService {
     }
 
     public List <FeedArticle> GetContentForAllFeed(String username){
-        List<FeedArticle> feedArticles = new ArrayList<>();
+        List<FeedArticle> feedArticles = new ArrayList<FeedArticle>();
         User temp = userDao.findUserByUsername(username);
         List <UserArticle> userArticles =  temp.getUserArticles();
         Iterator<UserArticle> i = userArticles.iterator();
         while (i.hasNext()) {
             UserArticle userArticle = i.next();
-            FeedArticle toAdd = userArticle.getFeedArticle();
-            feedArticles.add(toAdd);
+            userArticle.getFeedArticle().getFeed().getId();
+                FeedArticle toAdd = userArticle.getFeedArticle();
+                feedArticles.add(toAdd);
+
         }
         return feedArticles;
     }
@@ -111,6 +114,7 @@ public class FeedService {
         User temp = userDao.findUserByUsername(username);
         UserArticle userArticle = userArticleDao.findByUserAndArticleId(temp.getId(), articleId);
         if (userArticle != null && temp != null){
+            userArticle.getFeedArticle().getFeed().getId();
             FeedArticle feedArticle = userArticle.getFeedArticle();
             return feedArticle;
         }

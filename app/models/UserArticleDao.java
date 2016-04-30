@@ -15,8 +15,13 @@ public class UserArticleDao {
     }
 
     public UserArticle findByUserAndArticleId(int _user_id, int _article_id){
-        UserArticle temp = find.where().eq("user_id", _user_id).eq("feed_articles_id", _article_id).findUnique();
-        return temp;
+        try {
+            UserArticle temp = find.where().eq("user_id", _user_id).eq("feed_articles_id", _article_id).findUnique();
+            return temp;
+        }
+        catch (NullPointerException e){
+            return null;
+        }
     }
 
     public void updateArticleAsRead(UserArticle temp){
