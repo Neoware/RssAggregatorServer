@@ -28,6 +28,8 @@ public class User extends Model implements Serializable{
     @OneToMany(mappedBy = "user")
     private List<UserArticle> userArticles = new ArrayList<>();
 
+    public User() {}
+
     public User(String _username, String _password, String _mail){
         username = _username;
         password = _password;
