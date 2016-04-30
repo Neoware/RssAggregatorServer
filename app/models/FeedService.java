@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,6 +39,83 @@ public class FeedService {
         else{
             System.out.println("Not one of the user article, can\'t update read status to unread");
         }
+    }
+
+    public List<HeaderArticle> GetAllHeaderForAllFeed(String username){
+        List<HeaderArticle> headerArticles = new ArrayList<>();
+        User temp = userDao.findUserByUsername(username);
+        List <UserArticle> userArticles =  temp.getUserArticles();
+        Iterator<UserArticle> i = userArticles.iterator();
+        while (i.hasNext()) {
+            UserArticle userArticle = i.next();
+            HeaderArticle toAdd = new HeaderArticle(userArticle.isRead(), userArticle.getFeedArticle().getTitle());
+            headerArticles.add(toAdd);
+        }
+    return headerArticles;
+    }
+
+    public List<HeaderArticle> GetAllHeaderForOneFeed(String username, int feedId){
+        List<HeaderArticle> headerArticles = new ArrayList<>();
+        User temp = userDao.findUserByUsername(username);
+        List <UserArticle> userArticles =  temp.getUserArticles();
+        Iterator<UserArticle> i = userArticles.iterator();
+        while (i.hasNext()) {
+            UserArticle userArticle = i.next();
+            if (userArticle.getFeedArticle().getFeed().getId() == feedId) {
+                HeaderArticle toAdd = new HeaderArticle(userArticle.isRead(), userArticle.getFeedArticle().getTitle());
+                headerArticles.add(toAdd);
+            }
+        }
+        return headerArticles;
+    }
+    public HeaderArticle GetHeaderForOneArticle(String username, int articleId){
+        User temp = userDao.findUserByUsername(username);
+        UserArticle userArticle = userArticleDao.findByUserAndArticleId(temp.getId(), articleId);
+        if (userArticle != null && temp != null){
+            HeaderArticle headerArticle = new HeaderArticle(userArticle.isRead(), userArticle.getFeedArticle().getTitle());
+            return headerArticle;
+        }
+        else
+            return null;
+    }
+
+    public List <FeedArticle> GetContentForAllFeed(String username){
+        List<FeedArticle> feedArticles = new ArrayList<>();
+        User temp = userDao.findUserByUsername(username);
+        List <UserArticle> userArticles =  temp.getUserArticles();
+        Iterator<UserArticle> i = userArticles.iterator();
+        while (i.hasNext()) {
+            UserArticle userArticle = i.next();
+            FeedArticle toAdd = userArticle.getFeedArticle();
+            feedArticles.add(toAdd);
+        }
+        return feedArticles;
+    }
+
+    public List <FeedArticle> GetContentForOneFeed(String username, int feedId){
+        List<FeedArticle> feedArticles = new ArrayList<FeedArticle>();
+        User temp = userDao.findUserByUsername(username);
+        List <UserArticle> userArticles =  temp.getUserArticles();
+        Iterator<UserArticle> i = userArticles.iterator();
+        while (i.hasNext()) {
+            UserArticle userArticle = i.next();
+            if (userArticle.getFeedArticle().getFeed().getId() == feedId) {
+                FeedArticle toAdd = userArticle.getFeedArticle();
+                feedArticles.add(toAdd);
+            }
+        }
+        return feedArticles;
+    }
+
+    public FeedArticle GetContentForOneArticle(String username, int articleId){
+        User temp = userDao.findUserByUsername(username);
+        UserArticle userArticle = userArticleDao.findByUserAndArticleId(temp.getId(), articleId);
+        if (userArticle != null && temp != null){
+            FeedArticle feedArticle = userArticle.getFeedArticle();
+            return feedArticle;
+        }
+        else
+            return null;
     }
 
 }

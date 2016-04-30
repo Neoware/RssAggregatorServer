@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -70,6 +71,21 @@ public class SubscriptionService {
             return false;
         }
 
+    }
+
+    public List<HeaderSubscription> GetSubscriptions(String username){
+        User tempUser = userDao.findUserByUsername(username);
+        List <HeaderSubscription> headerSubscriptions = new ArrayList<>();
+
+        List <UserSubscription> userSubscriptions = tempUser.getUserSubscriptions();
+
+        Iterator<UserSubscription> i = userSubscriptions.iterator();
+        while (i.hasNext()) {
+            UserSubscription userSubscription = i.next();
+            HeaderSubscription toAdd = new HeaderSubscription(userSubscription.getFeed().getName(), userSubscription.getFeed().getUrl());
+            headerSubscriptions.add(toAdd);
+        }
+        return headerSubscriptions;
     }
 
 
