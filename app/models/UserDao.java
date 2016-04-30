@@ -40,6 +40,10 @@ public class UserDao {
             return null;
     }
 
+    public User findByHash(String userHash){
+        return find.where().eq("user_hash", userHash).findUnique();
+    }
+
 
 
 
