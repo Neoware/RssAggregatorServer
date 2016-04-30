@@ -1,3 +1,4 @@
+/*
 import java.util.concurrent.TimeUnit;
 
 import akka.actor.ActorRef;
@@ -8,9 +9,11 @@ import play.Application;
 import play.GlobalSettings;
 import play.libs.Akka;
 
+*/
 /**
  * Created by Neti on 24/04/2016.
- */
+ *//*
+
 
 class UpdateActor extends UntypedActor {
 
@@ -31,3 +34,4 @@ public class Global extends GlobalSettings {
                 updateActor, "UPDATE", Akka.system().dispatcher(), null);
     }
 }
+*/

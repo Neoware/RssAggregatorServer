@@ -9,7 +9,7 @@ import play.mvc.Result;
  */
 
 public class FeedApi extends Controller {
-    public static Result index (Integer userId) {
+    public Result index (Integer userId) {
         try {
             // List feedList = new List(FeedDao.findAll())
             // gson.toJson(feedList)
@@ -21,7 +21,7 @@ public class FeedApi extends Controller {
 
     }
 
-    public static Result subscribe(String url) {
+    public Result subscribe(String url) {
         try {
             // List feedList = new List(FeedDao.findAll())
             // gson.toJson(feedList)
@@ -33,7 +33,7 @@ public class FeedApi extends Controller {
 
     }
 
-    public static Result unsubscribe(String url) {
+    public Result unsubscribe(String url) {
         try {
             // List feedList = new List(FeedDao.findAll())
             // gson.toJson(feedList)
@@ -44,7 +44,7 @@ public class FeedApi extends Controller {
         }
     }
 
-    public static Result markAsRead(Integer id, Integer fid) {
+    public Result markAsRead(Integer fid) {
         try {
             // List feedList = new List(FeedDao.findAll())
             // gson.toJson(feedList)
@@ -55,7 +55,7 @@ public class FeedApi extends Controller {
         }
     }
 
-    public static Result markAsUnRead(Integer fid) {
+    public Result markAsUnRead(Integer fid) {
         try {
             // List feedList = new List(FeedDao.findAll())
             // gson.toJson(feedList)
@@ -66,7 +66,7 @@ public class FeedApi extends Controller {
         }
     }
 
-    public static  Result getFeedTitles(Integer fid) {
+    public Result getTitles() {
         try {
             // List feedList = new List(FeedDao.findAll())
             // gson.toJson(feedList)
@@ -77,7 +77,18 @@ public class FeedApi extends Controller {
         }
     }
 
-    public static Result getFeedArticles (Integer fid) {
+    public Result getFeedTitles(Integer fid) {
+        try {
+            // List feedList = new List(FeedDao.findAll())
+            // gson.toJson(feedList)
+            return ok("Sample Feed List");
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest("Error in processing feed list");
+        }
+    }
+
+    public Result getFeedArticles (Integer fid) {
         try {
             // List feedList = new List(FeedDao.findAll())
             // gson.toJson(feedList)
@@ -89,7 +100,7 @@ public class FeedApi extends Controller {
 
     }
 
-    public static Result getArticle(Integer articleId) {
+    public Result getArticles() {
         try {
             // List feedList = new List(FeedDao.findAll())
             // gson.toJson(feedList)
@@ -100,7 +111,7 @@ public class FeedApi extends Controller {
         }
     }
 
-    public static Result getArticleTitle (Integer articleId) {
+    public Result getArticle(Integer articleId) {
         try {
             // List feedList = new List(FeedDao.findAll())
             // gson.toJson(feedList)
@@ -111,7 +122,18 @@ public class FeedApi extends Controller {
         }
     }
 
-    public static Result getSubscriptions () {
+    public Result getArticleTitle (Integer articleId) {
+        try {
+            // List feedList = new List(FeedDao.findAll())
+            // gson.toJson(feedList)
+            return ok("Getting");
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest("Error in processing feed list");
+        }
+    }
+
+    public Result getSubscriptions () {
         try {
             // List feedList = new List(FeedDao.findAll())
             // gson.toJson(feedList)

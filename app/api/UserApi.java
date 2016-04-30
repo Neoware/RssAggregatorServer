@@ -10,7 +10,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 public class UserApi extends Controller {
-    public static Result index () {
+    public Result index () {
         try {
             // List userList = new List(UserDao.findAll())
             // gson.toJson(userList)
@@ -21,7 +21,7 @@ public class UserApi extends Controller {
         }
     }
 
-    public static Result read() {
+    public Result read() {
         try {
             return ok("Finding user of id ");
         } catch (Exception e) {
@@ -31,7 +31,7 @@ public class UserApi extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    public static Result create() {
+    public Result create() {
         JsonNode json = request().body().asJson();
         Gson gson = new Gson();
         Logger.info("Gson Unpacking... USER");
@@ -52,7 +52,7 @@ public class UserApi extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    public static Result update() {
+    public Result update() {
         JsonNode json = request().body().asJson();
         Gson gson = new Gson();
         Logger.info("Gson Unpacking... USER");
@@ -72,14 +72,14 @@ public class UserApi extends Controller {
         return ok("User updated");
     }
     
-    public static Result delete(Integer id) {
+    public Result delete() {
         try {
             // User currentUser = new List(UserDao.find(id))
             // gson.toJson(currentUser)
-            return ok("Finding user of id " + id);
+            return ok("Finding user of id ");
         } catch (Exception e){
             Logger.error(e.getMessage());
-            return badRequest("Finding user of id " + id);
+            return badRequest("Finding user of id ");
         }
     }
 }

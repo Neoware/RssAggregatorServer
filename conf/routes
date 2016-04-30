@@ -1,28 +1,48 @@
-# Routes
-# This file defines all application routes (Higher priority routes first)
-# ~~~~
 
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-# An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
 
-GET     /api/users/read        api.UserApi.index
-GET     /api/users/read/:id    api.UserApi.read(id: Integer)
-POST    /api/users/create      api.UserApi.create
-POST    /api/users/update      api.UserApi.update
-GET     /api/users/delete/:id  api.UserApi.delete(id: Integer)
 
-GET     /api/user/:id/feeds/read            api.FeedApi.index(id: Integer)
-GET     /api/user/:id/feeds/read/:fid       api.FeedApi.read(id: Integer, fid: Integer)
-POST    /api/user/:id/feeds/update          api.FeedApi.update(id: Integer)
-GET     /api/user/:id/feed/:fid/getTitles   api.FeedApi.getFeedTitles(id: Integer, fid: Integer)
-GET     /api/user/:id/feeds/reload          api.FeedApi.reloadFeeds(id: Integer)
-GET     /api/user/:id/article/:fid          api.FeedApi.getArticle(id: Integer, fid: Integer)
-GET     /api/user/:id/article/:fid          api.FeedApi.markAsRead(id: Integer, fid: Integer)
-GET     /api/user/:id/article/:fid          api.FeedApi.maskAsUnRead(id: Integer, fid: Integer)
+# Create a user by sending json
+POST    /api/users/create                                api.UserApi.create()
 
-# Map static resources from the /public folder to the /assets URL path
+# Delete the authenticated user
+GET    /api/users/delete                                 api.UserApi.delete()
+
+#  Update a User by sending json
+POST    /api/users/update                                api.UserApi.update()
+
+
+
+# Subscribe to a new rss
+GET    /api/:url/subscribe                                 api.FeedApi.subscribe(url: String)
+
+# Unsubscribe from a rss
+GET    /api/:url/unsubscribe                               api.FeedApi.unsubscribe(url: String)
+
+# Mark an article as read
+GET    /api/article/:articleId/read                        api.FeedApi.markAsRead(articleId: Integer)
+
+# Mark an article as unread
+GET    /api/article/:articleId/unread                      api.FeedApi.markAsUnRead(articleId: Integer)
+
+# Get all titles and status read/unread for all feeds
+GET     /api/feeds/title/all                                      api.FeedApi.getTitles()
+
+# Get all content of all articles for all feed
+GET     /api/feed/all                                              api.FeedApi.getArticles()
+
+# Get all titles and status read/unread of all articles for one feed
+GET     /api/feed/titles/:feedId                                  api.FeedApi.getFeedTitles(feedId: Integer)
+
+# Get all content of all articles for one feed
+GET     /api/feed/content/:feedId                              api.FeedApi.getFeedArticles(feedId: Integer)
+
+# Get the content of an article
+GET     /api/article/content/:articleId                                 api.FeedApi.getArticle(articleId: Integer)
+
+# Get title and status read/unread of an article
+GET     /api/article/title/:articleId                                 api.FeedApi.getArticleTitle(articleId: Integer)
+
+# Get all subscriptions
+GET     /api/subscriptions                                   api.FeedApi.getSubscriptions
+
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
