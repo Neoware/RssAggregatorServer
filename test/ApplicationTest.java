@@ -5,8 +5,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableMap;
-import models.User;
-import models.UserDao;
+import models.*;
 import org.junit.*;
 
 import play.db.Database;
@@ -35,7 +34,7 @@ public class ApplicationTest {
 
 
     @Test
-    public void TestUserDao(){
+    public void TestUserDao() {
         running(fakeApplication(), new Runnable() {
             public void run() {
                 UserDao userDao = new UserDao();
@@ -48,6 +47,54 @@ public class ApplicationTest {
                 userDao.deleteUser(created);
             }
         });
-}
+    }
+
+    @Test
+        public void TestSubscriptionService(){
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+                SubscriptionService subscriptionService = new SubscriptionService();
+                //Subscribe someone
+                subscriptionService.Subscribe("neoware", "www.test-feed/rss");
+                //Try to subscribe to the same feed again
+                subscriptionService.Subscribe("neoware", "www.test-feed/rss");
+                //Try to subscribe to a non existing feed
+                subscriptionService.Subscribe("neoware", "www.fake/rss");
+                //Delete fake feed (will delete subscriptions through foreign key cascade)
+                FeedDao feedDao = new FeedDao();
+                feedDao.Delete("www.fake/rss");
+                //Unsubscribe for the feed
+                subscriptionService.Unsubscribe("neoware","www.test-feed/rss");
+                // Try to unsubscribe for an already unsubscribed feed
+                subscriptionService.Unsubscribe("neoware","www.test-feed/rss");
+            }
+        });
+    }
+
+
+
+    @Test
+    public void TestUserService(){
+        running(fakeApplication(), new Runnable() {
+            public void run() {
+                UserService userService = new UserService();
+                //Try to create an already existing user;
+                userService.CreateUser("neoware", "test", "test");
+                //Try to create a user
+                userService.CreateUser("new", "test", "test");
+                //Try to update a user
+                userService.UpdateUser("new", "changed", "changed");
+                //Try to create then delete a user
+                userService.CreateUser("temp", "test", "test");
+                userService.DeleteUser("temp");
+                //Try to delete an already deleted user
+                userService.DeleteUser("temp");
+                //delete new
+                userService.DeleteUser("new");
+            }
+        });
+    }
+
 
 }
+

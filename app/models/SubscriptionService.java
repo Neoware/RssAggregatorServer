@@ -23,7 +23,7 @@ public class SubscriptionService {
         User tempUser = userDao.findUserByUsername(username);
         Feed tempFeed = feedDao.findByUrl(url);
         if (tempFeed == null){
-            //check if rss feed is correct
+            //TODO check if rss feed is correct
             if (true) {
                 feedDao.Create(url);
                 tempFeed = feedDao.findByUrl(url);

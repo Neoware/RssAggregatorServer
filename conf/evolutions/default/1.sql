@@ -7,6 +7,7 @@ create table feeds (
   id                            integer auto_increment not null,
   name                          varchar(255),
   url                           varchar(255),
+  constraint uq_feeds_url unique (url),
   constraint pk_feeds primary key (id)
 );
 

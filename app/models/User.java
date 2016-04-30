@@ -36,6 +36,13 @@ public class User extends Model implements Serializable{
         mail = _mail;
     }
 
+    public User(int _id, String _username, String _password, String _mail) {
+        id = _id;
+        username = _username;
+        password = _password;
+        mail = _mail;
+    }
+
     //region getters and setters
     public int getId() {
         return id;
@@ -85,7 +92,5 @@ public class User extends Model implements Serializable{
         this.userArticles = userArticles;
     }
     //endregion
-
-
 
 }

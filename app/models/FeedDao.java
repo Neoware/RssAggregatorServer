@@ -19,4 +19,17 @@ public class FeedDao {
         return temp.getFeedArticles();
     }
 
+    public Feed findByUrl(String _url){
+         return find.where().eq("url", _url).findUnique();
+    }
+
+    public void Create(String url){
+        Feed temp = new Feed(url);
+        temp.save();
+    }
+
+    public void Delete(String url){
+        Feed temp = findByUrl(url);
+        temp.delete();
+    }
 }
