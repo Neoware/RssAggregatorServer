@@ -45,8 +45,6 @@ public class UserDao {
     }
 
 
-
-
     public void createUser(User _user){
         _user.save();
     }

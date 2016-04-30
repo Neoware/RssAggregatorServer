@@ -61,4 +61,8 @@ public class UserService {
             userDao.updateUser(toUpdate);
         }
     }
+
+    public User authenticateByHash(String userHash){
+        return userDao.findByHash(userHash);
+    }
 }
