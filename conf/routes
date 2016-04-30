@@ -1,5 +1,5 @@
 
-
+GET    /                                                controllers.HomeController.index()
 
 # Create a user by sending json
 POST    /api/users/create                                api.UserApi.create()
