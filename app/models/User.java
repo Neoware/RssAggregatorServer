@@ -23,6 +23,7 @@ public class User extends Model implements Serializable{
     private String password;
     @Column(unique = true)
     private String mail;
+    private String userHash;
     @OneToMany(mappedBy = "user")
     private List<UserSubscription> userSubscriptions = new ArrayList<>();
     @OneToMany(mappedBy = "user")
@@ -91,6 +92,15 @@ public class User extends Model implements Serializable{
     public void setUserArticles(List<UserArticle> userArticles) {
         this.userArticles = userArticles;
     }
+
+    public String getUserHash() {
+        return userHash;
+    }
+
+    public void setUserHash(String userHash) {
+        this.userHash = userHash;
+    }
+
     //endregion
 
 }

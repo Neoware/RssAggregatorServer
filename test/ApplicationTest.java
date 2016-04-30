@@ -41,11 +41,6 @@ public class ApplicationTest {
                 UserDao userDao = new UserDao();
                 User check = userDao.FindUserById(1);
                 assertEquals("Failed to retrieve user", "neoware", check.getUsername());
-                User test = new User("user", "password", "testuser@gmail.com");
-                userDao.createUser(test);
-                User created = userDao.findUserByUsername("user");
-                assertEquals("Failed to create user or to retrieve the newly created user", "user", created.getUsername());
-                userDao.deleteUser(created);
             }
         });
     }
@@ -87,6 +82,7 @@ public class ApplicationTest {
                 userService.DeleteUser("temp");
                 //delete new
                 userService.DeleteUser("new");
+                userService.CreateUser("Test", "du", "md5");
             }
         });
     }
