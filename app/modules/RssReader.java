@@ -6,6 +6,7 @@ import com.sun.syndication.io.XmlReader;
 import models.Feed;
 import models.FeedArticleDao;
 import models.FeedDao;
+import org.apache.commons.codec.binary.Base64;
 import play.Logger;
 
 import java.net.HttpURLConnection;
@@ -20,7 +21,7 @@ import com.sun.syndication.io.SyndFeedInput;
 public class RssReader {
     public static Boolean verify(String url) throws Exception {
         try {
-            URL currentUrl = new URL(url);
+            URL currentUrl = new URL(new String(Base64.decodeBase64(url)));
             HttpURLConnection httpcon = (HttpURLConnection)currentUrl.openConnection();
 
             if (httpcon == null) {
@@ -35,7 +36,7 @@ public class RssReader {
 
     public void read(String url) throws Exception {
         try {
-            URL currentUrl = new URL(url);
+            URL currentUrl = new URL(new String(Base64.decodeBase64(url)));
             HttpURLConnection httpcon = (HttpURLConnection)currentUrl.openConnection();
             // Reading the feed
 
@@ -63,7 +64,7 @@ public class RssReader {
 
     public void update(String url) throws Exception {
         try {
-            URL currentUrl = new URL(url);
+            URL currentUrl = new URL(new String(Base64.decodeBase64(url)));
             HttpURLConnection httpcon = (HttpURLConnection)currentUrl.openConnection();
             // Reading the feed
 
