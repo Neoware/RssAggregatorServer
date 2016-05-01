@@ -47,7 +47,6 @@ public class UserApi extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     public Result create() {
-        // verifyAuth(request().getHeader("authentication"));
 
         JsonNode json = request().body().asJson();
         Gson gson = new Gson();
