@@ -36,6 +36,10 @@ public class FeedArticle extends Model implements Serializable{
                 '}';
     }
 
+    public String toJson() {
+        return null;
+    }
+
     //region getters and setters
     public int getId() {
         return id;

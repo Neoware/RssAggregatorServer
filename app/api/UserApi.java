@@ -2,14 +2,29 @@ package api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import models.User;
+import models.UserDao;
+import models.UserService;
 import play.Logger;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 
 import play.mvc.Result;
 
+import java.util.Map;
+
 public class UserApi extends Controller {
+    public static User verifyAuth(String hash) {
+        try {
+            UserService service = new UserService();
+            return service.authenticateByHash(hash);
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
     public Result index () {
         try {
             // List userList = new List(UserDao.findAll())
@@ -32,6 +47,8 @@ public class UserApi extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     public Result create() {
+        // verifyAuth(request().getHeader("authentication"));
+
         JsonNode json = request().body().asJson();
         Gson gson = new Gson();
         Logger.info("Gson Unpacking... USER");
@@ -44,15 +61,20 @@ public class UserApi extends Controller {
             Logger.error(e.getMessage());
             return badRequest(e.getMessage());
         }
-        Logger.info("C'est pas legal");
-        // User.create(user);
-        Logger.info("Sending...");
-        //return ok(String.valueOf(user.id));
-        return ok("User Saved");
+        UserService service = new UserService();
+        service.CreateUser(user.getUsername(), user.getPassword(), user.getMail());
+        return ok();
     }
 
     @BodyParser.Of(BodyParser.Json.class)
     public Result update() {
+        // Map header = request().headers()
+        User currentUser = verifyAuth(request().getHeader("authentication"));
+
+        if (currentUser == null) {
+            return notFound();
+        }
+
         JsonNode json = request().body().asJson();
         Gson gson = new Gson();
         Logger.info("Gson Unpacking... USER");
@@ -65,8 +87,8 @@ public class UserApi extends Controller {
             Logger.error(e.getMessage());
             return badRequest(e.getMessage());
         }
-        Logger.info("C'est pas legal");
-        // User.create(user);
+        UserService service = new UserService();
+        service.UpdateUser(user.getUsername(), user.getPassword(), user.getMail());
         Logger.info("Sending...");
         //return ok(String.valueOf(user.id));
         return ok("User updated");
@@ -74,12 +96,32 @@ public class UserApi extends Controller {
     
     public Result delete() {
         try {
-            // User currentUser = new List(UserDao.find(id))
-            // gson.toJson(currentUser)
-            return ok("Finding user of id ");
+            User currentUser = verifyAuth(request().getHeader("authentication"));
+            if (currentUser == null) {
+                return notFound();
+            }
+            UserService service = new UserService();
+            service.DeleteUser(currentUser.getUsername());
+            return ok("Deleting user named: " + currentUser.getUsername());
         } catch (Exception e){
             Logger.error(e.getMessage());
-            return badRequest("Finding user of id ");
+            return badRequest();
+        }
+    }
+
+    public Result auth() {
+        try {
+            User currentUser = verifyAuth(request().getHeader("authentication"));
+
+            if (currentUser == null) {
+                return notFound();
+            }
+
+            Gson json = new Gson();
+            return ok(json.toJson(currentUser));
+        } catch (Exception e){
+            Logger.error(e.getMessage());
+            return badRequest();
         }
     }
 }

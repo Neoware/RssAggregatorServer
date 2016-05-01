@@ -1,6 +1,9 @@
 
 GET    /                                                controllers.HomeController.index()
 
+#Authenticate
+GET     /api/users/authenticate                          api.UserApi.auth()
+
 # Create a user by sending json
 POST    /api/users/create                                api.UserApi.create()
 

@@ -1,53 +1,56 @@
 package api;
 
+import com.google.gson.Gson;
+import models.*;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-/**
- * Created by Neti on 13/04/2016.
- */
+import java.util.List;
+
+import static api.UserApi.verifyAuth;
 
 public class FeedApi extends Controller {
-    public Result index (Integer userId) {
-        try {
-            // List feedList = new List(FeedDao.findAll())
-            // gson.toJson(feedList)
-            return ok(new String("Sample Feed List"));
-        } catch (Exception e) {
-            Logger.error(e.getMessage());
-            return badRequest(new String("Error in processing feed list"));
-        }
-
-    }
 
     public Result subscribe(String url) {
         try {
-            // List feedList = new List(FeedDao.findAll())
-            // gson.toJson(feedList)
-            return ok(new String("Succesfully subscribed"));
+            User cUser = verifyAuth(request().getHeader("authentication"));
+            if (cUser == null) {
+                return unauthorized();
+            }
+            SubscriptionService service = new SubscriptionService();
+            service.Subscribe(cUser.getUsername(), url);
+            return ok("Succesfully subscribed");
         } catch (Exception e) {
             Logger.error(e.getMessage());
-            return badRequest(new String("Error while subscribing to feed url"));
+            return badRequest("Error while subscribing to feed url");
         }
 
     }
 
     public Result unsubscribe(String url) {
         try {
-            // List feedList = new List(FeedDao.findAll())
-            // gson.toJson(feedList)
-            return ok(new String("Succesfully unsubscribed"));
+            User cUser = verifyAuth(request().getHeader("authentication"));
+            if (cUser == null) {
+                return unauthorized();
+            }
+            SubscriptionService service = new SubscriptionService();
+            service.Unsubscribe(cUser.getUsername(), url);
+            return ok("Succesfully unsubscribed");
         } catch (Exception e) {
             Logger.error(e.getMessage());
-            return badRequest(new String("Error while unsubscribing to feed url"));
+            return badRequest("Error while unsubscribing to feed url");
         }
     }
 
     public Result markAsRead(Integer fid) {
         try {
-            // List feedList = new List(FeedDao.findAll())
-            // gson.toJson(feedList)
+            User cUser = verifyAuth(request().getHeader("authentication"));
+            if (cUser == null) {
+                return unauthorized();
+            }
+            FeedService service = new FeedService();
+            service.MarkAsRead(cUser.getUsername(), fid);
             return ok("Article marked as read");
         } catch (Exception e) {
             Logger.error(e.getMessage());
@@ -57,8 +60,12 @@ public class FeedApi extends Controller {
 
     public Result markAsUnRead(Integer fid) {
         try {
-            // List feedList = new List(FeedDao.findAll())
-            // gson.toJson(feedList)
+            User cUser = verifyAuth(request().getHeader("authentication"));
+            if (cUser == null) {
+                return unauthorized();
+            }
+            FeedService service = new FeedService();
+            service.MarkAsUnread(cUser.getUsername(), fid);
             return ok("Article marked as unread");
         } catch (Exception e) {
             Logger.error(e.getMessage());
@@ -68,9 +75,15 @@ public class FeedApi extends Controller {
 
     public Result getTitles() {
         try {
-            // List feedList = new List(FeedDao.findAll())
-            // gson.toJson(feedList)
-            return ok("Sample Feed List");
+            User cUser = verifyAuth(request().getHeader("authentication"));
+            if (cUser == null) {
+                return unauthorized();
+            }
+            FeedService service = new FeedService();
+            List result = service.GetAllHeaderForAllFeed(cUser.getUsername());
+            Gson gson = new Gson();
+            gson.toJson(result);
+            return ok(gson.toJson(result));
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest("Error in processing feed list");
@@ -79,9 +92,15 @@ public class FeedApi extends Controller {
 
     public Result getFeedTitles(Integer fid) {
         try {
-            // List feedList = new List(FeedDao.findAll())
-            // gson.toJson(feedList)
-            return ok("Sample Feed List");
+            User cUser = verifyAuth(request().getHeader("authentication"));
+            if (cUser == null) {
+                return unauthorized();
+            }
+            FeedService service = new FeedService();
+            List result = service.GetAllHeaderForOneFeed(cUser.getUsername(), fid);
+            Gson gson = new Gson();
+            gson.toJson(result);
+            return ok(gson.toJson(result));
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest("Error in processing feed list");
@@ -90,9 +109,15 @@ public class FeedApi extends Controller {
 
     public Result getFeedArticles (Integer fid) {
         try {
-            // List feedList = new List(FeedDao.findAll())
-            // gson.toJson(feedList)
-            return ok("Sample Feed List");
+            User cUser = verifyAuth(request().getHeader("authentication"));
+            if (cUser == null) {
+                return unauthorized();
+            }
+            FeedService service = new FeedService();
+            List result = service.GetContentForOneFeed(cUser.getUsername(), fid);
+            Gson gson = new Gson();
+            gson.toJson(result);
+            return ok(gson.toJson(result));
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest("Error in processing feed list");
@@ -102,9 +127,15 @@ public class FeedApi extends Controller {
 
     public Result getArticles() {
         try {
-            // List feedList = new List(FeedDao.findAll())
-            // gson.toJson(feedList)
-            return ok("Getting");
+            User cUser = verifyAuth(request().getHeader("authentication"));
+            if (cUser == null) {
+                return unauthorized();
+            }
+            FeedService service = new FeedService();
+            List result = service.GetContentForAllFeed(cUser.getUsername());
+            Gson gson = new Gson();
+            gson.toJson(result);
+            return ok(gson.toJson(result));
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest("Error in processing feed list");
@@ -113,9 +144,15 @@ public class FeedApi extends Controller {
 
     public Result getArticle(Integer articleId) {
         try {
-            // List feedList = new List(FeedDao.findAll())
-            // gson.toJson(feedList)
-            return ok("Getting");
+            User cUser = verifyAuth(request().getHeader("authentication"));
+            if (cUser == null) {
+                return unauthorized();
+            }
+            FeedService service = new FeedService();
+            FeedArticle result = service.GetContentForOneArticle(cUser.getUsername(), articleId);
+            Gson gson = new Gson();
+            gson.toJson(result);
+            return ok(gson.toJson(result));
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest("Error in processing feed list");
@@ -124,9 +161,15 @@ public class FeedApi extends Controller {
 
     public Result getArticleTitle (Integer articleId) {
         try {
-            // List feedList = new List(FeedDao.findAll())
-            // gson.toJson(feedList)
-            return ok("Getting");
+            User cUser = verifyAuth(request().getHeader("authentication"));
+            if (cUser == null) {
+                return unauthorized();
+            }
+            FeedService service = new FeedService();
+            HeaderArticle result = service.GetHeaderForOneArticle(cUser.getUsername(), articleId);
+            Gson gson = new Gson();
+            gson.toJson(result);
+            return ok(gson.toJson(result));
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest("Error in processing feed list");
@@ -135,13 +178,18 @@ public class FeedApi extends Controller {
 
     public Result getSubscriptions () {
         try {
-            // List feedList = new List(FeedDao.findAll())
-            // gson.toJson(feedList)
-            return ok("Sample Feed List");
+            User cUser = verifyAuth(request().getHeader("authentication"));
+            if (cUser == null) {
+                return unauthorized();
+            }
+            SubscriptionService service = new SubscriptionService();
+            List result = service.GetSubscriptions(cUser.getUsername());
+            Gson gson = new Gson();
+            gson.toJson(result);
+            return ok(gson.toJson(result));
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest("Error in processing feed list");
         }
-
     }
 }
