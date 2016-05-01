@@ -3,9 +3,7 @@ package modules;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.XmlReader;
-import models.Feed;
-import models.FeedArticleDao;
-import models.FeedDao;
+import models.*;
 import org.apache.commons.codec.binary.Base64;
 import play.Logger;
 
@@ -19,6 +17,7 @@ import com.sun.syndication.io.SyndFeedInput;
 
 
 public class RssReader {
+
     public static Boolean verify(String url) throws Exception {
         try {
             URL currentUrl = new URL(new String(Base64.decodeBase64(url)));
@@ -35,7 +34,7 @@ public class RssReader {
         }
     }
 
-    public void read(String url) throws Exception {
+    public void read(String url, Integer userId) throws Exception {
         try {
             URL currentUrl = new URL(new String(Base64.decodeBase64(url)));
             HttpURLConnection httpcon = (HttpURLConnection)currentUrl.openConnection();
@@ -46,17 +45,21 @@ public class RssReader {
             }
 
             FeedDao feedDao = new FeedDao();
-            Feed tmp = feedDao.Create(url);
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feed = input.build(new XmlReader(httpcon));
             List entries = feed.getEntries();
             Iterator itEntries = entries.iterator();
 
+            Feed tmp = feedDao.Create(url, feed.getTitle());
+
             while (itEntries.hasNext()) {
                 SyndEntry entry = (SyndEntry) itEntries.next();
                 FeedArticleDao faDao = new FeedArticleDao();
                 LocalDate date = entry.getPublishedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                faDao.Create(entry.getTitle(), entry.getLink(), tmp,entry.getAuthor(), date);
+                FeedArticle fArticle = faDao.Create(entry.getTitle(), entry.getLink(), tmp, entry.getAuthor(), date);
+
+                UserArticleDao uArticle = new UserArticleDao();
+                uArticle.Create(userId, fArticle.getId());
             }
         } catch (Exception e) {
             Logger.error(e.getMessage());
@@ -75,11 +78,12 @@ public class RssReader {
 
             FeedDao feedDao = new FeedDao();
             feedDao.Delete(url);
-            Feed tmp = feedDao.Create(url);
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feed = input.build(new XmlReader(httpcon));
             List entries = feed.getEntries();
             Iterator itEntries = entries.iterator();
+
+            Feed tmp = feedDao.Create(url, feed.);
 
             while (itEntries.hasNext()) {
                 SyndEntry entry = (SyndEntry) itEntries.next();
