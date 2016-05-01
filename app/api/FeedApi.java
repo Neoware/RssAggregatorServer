@@ -2,6 +2,7 @@ package api;
 
 import com.google.gson.Gson;
 import models.*;
+import modules.RssReader;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -11,6 +12,22 @@ import java.util.List;
 import static api.UserApi.verifyAuth;
 
 public class FeedApi extends Controller {
+
+    public Result update(String url) {
+        try {
+            User cUser = verifyAuth(request().getHeader("authentication"));
+            if (cUser == null) {
+                return unauthorized();
+            }
+            RssReader rss = new RssReader();
+            rss.update(url);
+            return ok("Succesfully updated");
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest("Error while updating the feed");
+        }
+
+    }
 
     public Result subscribe(String url) {
         try {

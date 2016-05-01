@@ -14,7 +14,9 @@ GET    /api/users/delete                                 api.UserApi.delete()
 POST    /api/users/update                                api.UserApi.update()
 
 
+GET     /api/:url/update                                  api.FeedApi.subscribe(url: String)
 
+GET    /api/:url/subscribe                                 api.FeedApi.subscribe(url: String)
 # Subscribe to a new rss
 GET    /api/:url/subscribe                                 api.FeedApi.subscribe(url: String)
 
