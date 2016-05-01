@@ -32,4 +32,5 @@ public class FeedArticleDao {
         temp.save();
         return (findUserArticleByArticleId(temp.getId()));
     }
+
 }

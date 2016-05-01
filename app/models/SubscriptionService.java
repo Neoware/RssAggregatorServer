@@ -33,6 +33,7 @@ public class SubscriptionService {
                 try {
                     if (RssReader.verify(url)) {
                         rssReader.read(url, tempUser.getId());
+
                         tempFeed = feedDao.findByUrl(url);
                     }
                     else {

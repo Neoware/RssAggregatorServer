@@ -33,6 +33,7 @@ public class UserArticleDao {
         toCreate.save();
     }
 
+
     public void updateArticleAsRead(UserArticle temp){
         temp.setRead(true);
         temp.update();

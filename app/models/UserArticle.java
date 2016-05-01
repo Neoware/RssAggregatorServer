@@ -27,6 +27,7 @@ public class UserArticle extends Model implements Serializable{
         user = _user;
         feedArticle = _feedArticle;
         isRead = false;
+
     }
 
     @Override
