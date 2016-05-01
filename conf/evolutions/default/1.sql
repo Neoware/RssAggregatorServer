@@ -16,7 +16,7 @@ create table feed_articles (
   title                         varchar(255),
   content                       varchar(255),
   author                        varchar(255),
-  published_date                datetime(6),
+  published_date                date,
   feed_id                       integer,
   constraint pk_feed_articles primary key (id)
 );

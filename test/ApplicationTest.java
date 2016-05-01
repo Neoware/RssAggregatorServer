@@ -49,15 +49,21 @@ public class ApplicationTest {
         public void TestSubscriptionService(){
         running(fakeApplication(), new Runnable() {
             public void run() {
-                SubscriptionService subscriptionService = new SubscriptionService();
-                //Try to subscribe to a non existing feed
-                subscriptionService.Subscribe("neoware", "www.fake/rss");
-                //Try to subscribe to the same feed again
-                subscriptionService.Subscribe("neoware", "www.fake/rss");
-                //Delete fake feed (will delete subscriptions through foreign key cascade)
-                subscriptionService.Unsubscribe("neoware", "www.fake/rss");
-                FeedDao feedDao = new FeedDao();
-                feedDao.Delete("www.fake/rss");
+                try{
+                    SubscriptionService subscriptionService = new SubscriptionService();
+                    //Try to subscribe to a non existing feed
+                    subscriptionService.Subscribe("neoware", "www.fake/rss");
+                    //Try to subscribe to the same feed again
+                    subscriptionService.Subscribe("neoware", "www.fake/rss");
+                    //Delete fake feed (will delete subscriptions through foreign key cascade)
+                    subscriptionService.Unsubscribe("neoware", "www.fake/rss");
+                    FeedDao feedDao = new FeedDao();
+                    feedDao.Delete("www.fake/rss");
+                }
+                catch (Exception e){
+                    System.out.println(e.getStackTrace());
+                }
+
             }
         });
     }
@@ -68,21 +74,26 @@ public class ApplicationTest {
     public void TestUserService(){
         running(fakeApplication(), new Runnable() {
             public void run() {
-                UserService userService = new UserService();
-                //Try to create an already existing user;
-                userService.CreateUser("neoware", "test", "test");
-                //Try to create a user
-                userService.CreateUser("new", "test", "test");
-                //Try to update a user
-                userService.UpdateUser("new", "changed", "changed");
-                //Try to create then delete a user
-                userService.CreateUser("temp", "test", "test");
-                userService.DeleteUser("temp");
-                //Try to delete an already deleted user
-                userService.DeleteUser("temp");
-                //delete new
-                userService.DeleteUser("new");
-                userService.CreateUser("Test", "du", "md5");
+                try {
+                    UserService userService = new UserService();
+                    //Try to create an already existing user;
+                    userService.CreateUser("neoware", "test", "test");
+                    //Try to create a user
+                    userService.CreateUser("new", "test", "test");
+                    //Try to update a user
+                    userService.UpdateUser("new", "changed", "changed");
+                    //Try to create then delete a user
+                    userService.CreateUser("temp", "test", "test");
+                    userService.DeleteUser("temp");
+                    //Try to delete an already deleted user
+                    userService.DeleteUser("temp");
+                    //delete new
+                    userService.DeleteUser("new");
+                    userService.CreateUser("Test", "du", "md5");
+                }
+                catch (Exception e){
+                    System.out.println(e.getStackTrace());
+                }
             }
         });
     }
@@ -91,15 +102,20 @@ public class ApplicationTest {
     public void TestFeedServiceReadStatus(){
         running(fakeApplication(), new Runnable() {
             public void run() {
-                FeedService feedService = new FeedService();
-                // Try to mark as read
-                feedService.MarkAsRead("neoware", 1);
-                // Try to mark as unread
-                feedService.MarkAsUnread("neoware", 3);
-                // Try to mark as read an article that doesn't belong to this user
-                feedService.MarkAsRead("neoware", 5);
-                // Try to mark as unread an article that doesn't belong to this user
-                feedService.MarkAsUnread("neoware", 6);
+                try {
+                    FeedService feedService = new FeedService();
+                    // Try to mark as read
+                    feedService.MarkAsRead("neoware", 1);
+                    // Try to mark as unread
+                    feedService.MarkAsUnread("neoware", 3);
+                    // Try to mark as read an article that doesn't belong to this user
+                    feedService.MarkAsRead("neoware", 5);
+                    // Try to mark as unread an article that doesn't belong to this user
+                    feedService.MarkAsUnread("neoware", 6);
+                }
+                catch (Exception e){
+                    System.out.println(e.getStackTrace());
+                }
             }
         });
     }
