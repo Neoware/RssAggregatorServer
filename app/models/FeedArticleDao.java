@@ -2,6 +2,7 @@ package models;
 
 import com.avaje.ebean.Model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class FeedArticleDao {
         return temp;
     }
 
-    public void Create(String title, String content, Feed feed, String author, Date publishedDate){
+    public void Create(String title, String content, Feed feed, String author, LocalDate publishedDate){
         FeedArticle temp = new FeedArticle(title, content, feed, author, publishedDate);
         temp.save();
     }

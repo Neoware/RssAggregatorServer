@@ -1,5 +1,8 @@
 package models;
 
+import modules.RssReader;
+
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,28 +23,33 @@ public class SubscriptionService {
     }
 
 
-    public boolean Subscribe(String username, String url){
+    public boolean Subscribe(String username, String url) {
         User tempUser = userDao.findUserByUsername(username);
         Feed tempFeed = feedDao.findByUrl(url);
-        if (tempFeed == null){
-            //TODO check if rss feed is correct
-            if (true) {
-                feedDao.Create(url);
-                tempFeed = feedDao.findByUrl(url);
+            if (tempFeed == null){
+                try {
+                    if (RssReader.verify(url)) {
+                        feedDao.Create(url);
+                        tempFeed = feedDao.findByUrl(url);
+                    }
+                    else {
+                        System.out.println("Bad rss");
+                        return false;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
             }
             else {
-                System.out.println("Bad rss");
-                return false;
+                if (userSubscriptionDao.findByUserAndFeed(tempUser, tempFeed) !=  null) {
+                    System.out.println("Already subscribe");
+                    return false;
+                }
             }
-        }
-        else {
-            if (userSubscriptionDao.findByUserAndFeed(tempUser, tempFeed) !=  null) {
-                System.out.println("Already subscribe");
-                return false;
-            }
-        }
-        userSubscriptionDao.createSubscription(tempUser, tempFeed);
-        return true;
+            userSubscriptionDao.createSubscription(tempUser, tempFeed);
+            return true;
+
     }
 
     public boolean Unsubscribe(String username, String url){

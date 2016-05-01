@@ -5,8 +5,8 @@ import com.avaje.ebean.Model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +21,7 @@ public class FeedArticle extends Model implements Serializable{
     private String title;
     private String content;
     private String author;
-    private Date publishedDate;
+    private LocalDate publishedDate;
     @ManyToOne()
     @JoinColumn(name = "feed_id")
     private Feed feed;
@@ -43,7 +43,7 @@ public class FeedArticle extends Model implements Serializable{
         return null;
     }
 
-    public FeedArticle(String _title, String _content, Feed _feed, String _author, Date _publishedDate){
+    public FeedArticle(String _title, String _content, Feed _feed, String _author, LocalDate _publishedDate){
         title = _title;
         content = _content;
         feed = _feed;
@@ -100,11 +100,11 @@ public class FeedArticle extends Model implements Serializable{
         this.author = author;
     }
 
-    public Date getPublishedDate() {
+    public LocalDate getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(Date publishedDate) {
+    public void setPublishedDate(LocalDate publishedDate) {
         this.publishedDate = publishedDate;
     }
     //endregion
