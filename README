@@ -1,49 +1,43 @@
-This is your new Play application
+Comment utiliser l'api
 =================================
 
-This file will be packaged with your application when using `activator dist`.
+L'api est décomposée en principalement 2 parties :
+- Une partie user
+- Une partie feed
 
-There are several demonstration files available in this template.
+Partie user
+=================================
 
-Controllers
-===========
+POST    /api/users/create
+Vous permets de créer un nouveau user, vous devez envoyer en Json une classe sérialisée User contenant un username, un password et une adresse e-mail
 
-- HomeController.java:
+GET    /api/users/delete
+Supprime le user qui fait cette requête, aucun argument à envoyer
 
-  Shows how to handle simple HTTP requests.
+POST    /api/users/update
+Vous permets d'updater les champs d'un user, il faut envoyer le même json que pour la requête create
 
-- AsyncController.java:
+Partie feed
+=================================
 
-  Shows how to do asynchronous programming when handling a request.
+Dans cette partie de l'API vous pouvez récuperer et manipuler les articles et gérer vos abonnements
 
-- CountController.java:
+- Si vous ne voulez que les headers des articles (id de l'article + titre + read/unread status)
+GET     /api/feeds/title/all pour obtenir les headers de tous les articles de toutes vos feeds
+GET     /api/feed/titles/:feedId pour obtenir les headers de tous les articles d'une de vos feeds, :feedId étant l'id de la feed en question
+GET     /api/article/title/:articleId pour obtenir les header d'un article, :articleId étant l'id de l'article en question
 
-  Shows how to inject a component into a controller and use the component when
-  handling requests.
+- Si vous voulez le contenu des articles (id de l'article + titre + contenu)
+GET     /api/feed/all pour obtenir le contenu de tous les articles de toutes vos feeds
+GET     /api/feed/content/:feedId pour obtenir le contenu de tous les articles d'une de vos feeds, :feedId étant l'id de la feed en question
+GET     /api/article/content/:articleId pour obtenir le contenu d'un article, :articleId étant l'id de l'article en question
 
-Components
-==========
+- Pour changer le status des articles
+GET    /api/article/:articleId/read pour marquer l'article dont l'id est :articleId comme lu
+GET    /api/article/:articleId/unread pour marquer l'article dont l'id est :articleId comme non lu
 
-- Module.java:
+- Pour gérer les abonnements
+GET    /api/:url/subscribe pour s'abonner au flux rss dont :url est l'url
+GET    /api/:url/unsubscribe pour se désabonner au flux rss dont :url est l'url
+GET     /api/subscriptions récupére vos abonnements (name + url + id de la feed)
 
-  Shows how to use Guice to bind all the components needed by your application.
-
-- Counter.java:
-
-  An example of a component that contains state, in this case a simple counter.
-
-- ApplicationTimer.java:
-
-  An example of a component that starts when the application starts and stops
-  when the application stops.
-
-Filters
-=======
-
-- Filters.java:
-
-  Creates the list of HTTP filters used by your application.
-
-- ExampleFilter.java
-
-  A simple filter that adds a header to every response.
