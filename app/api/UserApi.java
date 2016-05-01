@@ -115,9 +115,7 @@ public class UserApi extends Controller {
             if (currentUser == null) {
                 return notFound();
             }
-
-            Gson json = new Gson();
-            return ok(json.toJson(currentUser));
+            return ok("mes couilles");
         } catch (Exception e){
             Logger.error(e.getMessage());
             return badRequest();
