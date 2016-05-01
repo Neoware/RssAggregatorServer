@@ -68,6 +68,13 @@ public class RssReader {
             HttpURLConnection httpcon = (HttpURLConnection)currentUrl.openConnection();
             // Reading the feed
 
+            if (httpcon == null) {
+                return;
+            }
+
+            FeedDao feedDao = new FeedDao();
+            feedDao.Delete(url);
+            Feed tmp = feedDao.Create(url);
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feed = input.build(new XmlReader(httpcon));
             List entries = feed.getEntries();
@@ -75,12 +82,9 @@ public class RssReader {
 
             while (itEntries.hasNext()) {
                 SyndEntry entry = (SyndEntry) itEntries.next();
-                System.out.println("Title: " + entry.getTitle());
-                System.out.println("Link: " + entry.getLink());
-                System.out.println("Author: " + entry.getAuthor());
-                System.out.println("Publish Date: " + entry.getPublishedDate());
-                System.out.println("Description: " + entry.getDescription().getValue());
-                System.out.println();
+                FeedArticleDao faDao = new FeedArticleDao();
+                LocalDate date = entry.getPublishedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                faDao.Create(entry.getTitle(), entry.getLink(), tmp,entry.getAuthor(), date);
             }
         } catch (Exception e) {
             Logger.error(e.getMessage());
