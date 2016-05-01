@@ -8,9 +8,11 @@
 
     <md-content class="feed-list">
       <md-list flex>
-        <md-subheader class="md-no-sticky">2 line item</md-subheader>
+        <md-subheader class="md-no-sticky">{{ feedsTitle.length }} line item
+        </md-subheader>
         <md-list-item 
-          ng-repeat="(key, feed) in feeds"
+          ng-if="feedsTitle.length > 0"
+          ng-repeat="(key, feed) in feedsTitle"
           class="md-2-line" ng-click="selectFeed(feed)">
           <ng-md-icon icon="rss_feed" class="icon-feed"></ng-md-icon>
           <div class="md-list-item-text">
@@ -19,6 +21,10 @@
           </div>
         </md-list-item>
         <md-divider></md-divider>
+        <md-button ng-click="manage()" class="md-raised logout" aria-label="Learn More">
+          Manage feeds 
+          <ng-md-icon icon="create_new_folder" class="icon-feed"></ng-md-icon>
+        </md-button>
       </md-list>
     </md-content>
 
