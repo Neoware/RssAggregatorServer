@@ -5,6 +5,7 @@ import com.avaje.ebean.Model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,12 +26,11 @@ public class Feed extends Model implements Serializable {
     @OneToMany(mappedBy = "feed")
     private List<UserSubscription> userSubscriptions = new ArrayList<>();
 
+
     public Feed(String _url){
         this.url = _url;
         this.name = "unknown";
     }
-
-
 
     //region getters and setters
     public String getUrl() {
@@ -64,6 +64,8 @@ public class Feed extends Model implements Serializable {
     public void setFeedArticles(List<FeedArticle> feedArticles) {
         this.feedArticles = feedArticles;
     }
+
+
     //endregion
 
 }

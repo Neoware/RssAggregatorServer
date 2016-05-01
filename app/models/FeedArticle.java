@@ -6,6 +6,7 @@ import com.avaje.ebean.Model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +20,8 @@ public class FeedArticle extends Model implements Serializable{
     private int id;
     private String title;
     private String content;
+    private String author;
+    private Date publishedDate;
     @ManyToOne()
     @JoinColumn(name = "feed_id")
     private Feed feed;
@@ -40,10 +43,12 @@ public class FeedArticle extends Model implements Serializable{
         return null;
     }
 
-    public FeedArticle(String _title, String _content, Feed _feed){
+    public FeedArticle(String _title, String _content, Feed _feed, String _author, Date _publishedDate){
         title = _title;
         content = _content;
         feed = _feed;
+        author = _author;
+        publishedDate = _publishedDate;
     }
 
     //region getters and setters
@@ -85,6 +90,22 @@ public class FeedArticle extends Model implements Serializable{
 
     public void setUserArticles(List<UserArticle> userArticles) {
         this.userArticles = userArticles;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Date getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(Date publishedDate) {
+        this.publishedDate = publishedDate;
     }
     //endregion
 }
