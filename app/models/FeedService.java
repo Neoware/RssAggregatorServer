@@ -19,25 +19,25 @@ public class FeedService {
         feedArticleDao = new FeedArticleDao();
     }
 
-    public void MarkAsRead(String username, int articleId){
+    public void MarkAsRead(String username, int articleId) throws Exception {
         User temp = userDao.findUserByUsername(username);
         UserArticle toUpdate = userArticleDao.findByUserAndArticleId(temp.getId(), articleId);
         if (toUpdate != null){
             userArticleDao.updateArticleAsRead(toUpdate);
         }
         else{
-            System.out.println("Not one of the user article, can\'t update read status to read");
+            throw new Exception("Not one of the user article, can\'t update read status to read");
         }
     }
 
-    public void MarkAsUnread(String username, int articleId){
+    public void MarkAsUnread(String username, int articleId) throws Exception {
         User temp = userDao.findUserByUsername(username);
         UserArticle toUpdate = userArticleDao.findByUserAndArticleId(temp.getId(), articleId);
         if (toUpdate != null){
             userArticleDao.updateArticleAsUnread(toUpdate);
         }
         else{
-            System.out.println("Not one of the user article, can\'t update read status to unread");
+            throw new Exception("Not one of the user article, can\'t update read status to unread");
         }
     }
 
@@ -81,7 +81,7 @@ public class FeedService {
     }
 
     public List <FeedArticle> GetContentForAllFeed(String username){
-        List<FeedArticle> feedArticles = new ArrayList<FeedArticle>();
+        List<FeedArticle> feedArticles = new ArrayList<>();
         User temp = userDao.findUserByUsername(username);
         List <UserArticle> userArticles =  temp.getUserArticles();
         Iterator<UserArticle> i = userArticles.iterator();

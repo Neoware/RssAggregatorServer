@@ -23,7 +23,7 @@ public class SubscriptionService {
     }
 
 
-    public boolean Subscribe(String username, String url) {
+    public void Subscribe(String username, String url) throws Exception {
         User tempUser = userDao.findUserByUsername(username);
         Feed tempFeed = feedDao.findByUrl(url);
             if (tempFeed == null){
@@ -33,31 +33,26 @@ public class SubscriptionService {
                         tempFeed = feedDao.findByUrl(url);
                     }
                     else {
-                        System.out.println("Bad rss");
-                        return false;
+                        throw new Exception("Bad rss");
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    return false;
+                    throw new Exception("Bad rss");
                 }
             }
             else {
                 if (userSubscriptionDao.findByUserAndFeed(tempUser, tempFeed) !=  null) {
-                    System.out.println("Already subscribe");
-                    return false;
+                    throw new Exception("Already subscribe");
                 }
             }
             userSubscriptionDao.createSubscription(tempUser, tempFeed);
-            return true;
 
     }
 
-    public boolean Unsubscribe(String username, String url){
+    public void Unsubscribe(String username, String url) throws Exception {
         User tempUser = userDao.findUserByUsername(username);
         Feed tempFeed = feedDao.findByUrl(url);
         if (tempFeed == null){
-            System.out.println("This feed doesn't exist");
-            return false;
+            throw new Exception("This feed doesn't exist");
         }
         UserSubscription subscription = userSubscriptionDao.findByUserAndFeed(tempUser, tempFeed);
         if (subscription !=  null) {
@@ -72,11 +67,9 @@ public class SubscriptionService {
             }
             tempUser.setUserArticles(userArticles);
             userDao.updateUser(tempUser);
-            return true;
         }
         else {
-            System.out.println("This user is already not subscribed to this url");
-            return false;
+            throw new Exception("This user is already not subscribed to this url");
         }
 
     }

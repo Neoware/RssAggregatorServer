@@ -61,7 +61,13 @@ public class UserApi extends Controller {
             return badRequest(e.getMessage());
         }
         UserService service = new UserService();
-        service.CreateUser(user.getUsername(), user.getPassword(), user.getMail());
+        try {
+            service.CreateUser(user.getUsername(), user.getPassword(), user.getMail());
+        }
+        catch (Exception e){
+            Logger.error(e.getMessage());
+            return badRequest(e.getMessage());
+        }
         return ok();
     }
 
@@ -87,7 +93,13 @@ public class UserApi extends Controller {
             return badRequest(e.getMessage());
         }
         UserService service = new UserService();
-        service.UpdateUser(user.getUsername(), user.getPassword(), user.getMail());
+        try{
+            service.UpdateUser(user.getUsername(), user.getPassword(), user.getMail());
+        }
+        catch (Exception e){
+            Logger.error(e.getMessage());
+            return badRequest(e.getMessage());
+        }
         Logger.info("Sending...");
         //return ok(String.valueOf(user.id));
         return ok("User updated");
@@ -115,7 +127,7 @@ public class UserApi extends Controller {
             if (currentUser == null) {
                 return notFound();
             }
-            return ok("mes couilles");
+            return ok("Good credentials");
         } catch (Exception e){
             Logger.error(e.getMessage());
             return badRequest();

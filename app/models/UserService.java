@@ -16,7 +16,7 @@ public class UserService {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
             byte[] array = md.digest(md5.getBytes());
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < array.length; ++i) {
                 sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
             }
@@ -26,7 +26,7 @@ public class UserService {
         return null;
     }
 
-    public void CreateUser(String username, String password, String email){
+    public void CreateUser(String username, String password, String email) throws Exception {
         User temp = userDao.findUserByUsername(username);
         if (temp == null){
             User toCreate = new User(username, password, email);
@@ -34,26 +34,26 @@ public class UserService {
             userDao.createUser(toCreate);
         }
         else{
-            System.out.println("User already exists");
+            throw new Exception("User already exist");
         }
 
     }
 
-    public void DeleteUser(String username){
+    public void DeleteUser(String username) throws Exception {
         User temp = userDao.findUserByUsername(username);
         if (temp == null){
             //Normally should never get there
-            System.out.println("User doesn't exist");
+            throw new Exception("No such user");
         }
         else{
             userDao.deleteUser(temp);
         }
     }
 
-    public void UpdateUser(String username, String password, String email){
+    public void UpdateUser(String username, String password, String email) throws Exception {
         User temp = userDao.findUserByUsername(username);
         if (temp == null){
-            System.out.println("User doesn't exist");
+            throw new Exception("No such User");
         }
         else{
             User toUpdate = new User(temp.getId(), username, password, email);
