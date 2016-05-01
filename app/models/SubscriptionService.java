@@ -1,6 +1,7 @@
 package models;
 
 import modules.RssReader;
+import org.apache.commons.codec.binary.Base64;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -83,7 +84,7 @@ public class SubscriptionService {
         Iterator<UserSubscription> i = userSubscriptions.iterator();
         while (i.hasNext()) {
             UserSubscription userSubscription = i.next();
-            HeaderSubscription toAdd = new HeaderSubscription(userSubscription.getFeed().getName(), userSubscription.getFeed().getUrl(), userSubscription.getFeed().getId());
+            HeaderSubscription toAdd = new HeaderSubscription(userSubscription.getFeed().getName(), new String(Base64.decodeBase64(userSubscription.getFeed().getUrl())), userSubscription.getFeed().getId());
             headerSubscriptions.add(toAdd);
         }
         return headerSubscriptions;
