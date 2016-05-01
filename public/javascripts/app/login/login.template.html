@@ -1,0 +1,23 @@
+<div class='centered'>
+  <div class='login-container'>
+    <div class='logo'>
+      <div class='logo-img'></div>
+    </div>
+    <div class='content'>
+      <div class='input-wrapper'>
+         <md-input-container class="md-block" flex-gt-sm>
+            <label>Username</label>
+            <input class="gray" ng-model="login.user.username">
+          </md-input-container>
+         <md-input-container class="md-block" flex-gt-sm>
+            <label>Password</label>
+            <input class="gray" type="password" ng-model="login.user.password">
+          </md-input-container>
+           <md-button ng-click="login.login()" class="md-raised md-primary white">Login</md-button>
+      </div>
+      <p class="md-caption">
+        <a class="no-underline green link" href="/#/register" >Create an account</a>
+      </p>
+    </div>
+  </div>
+</div>
