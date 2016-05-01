@@ -83,7 +83,7 @@ public class RssReader {
             List entries = feed.getEntries();
             Iterator itEntries = entries.iterator();
 
-            Feed tmp = feedDao.Create(url, feed.);
+            Feed tmp = feedDao.Create(url, feed.getTitle());
 
             while (itEntries.hasNext()) {
                 SyndEntry entry = (SyndEntry) itEntries.next();
