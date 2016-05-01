@@ -10,6 +10,8 @@ import play.Logger;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Iterator;
 import java.util.List;
 import com.sun.syndication.io.SyndFeedInput;
@@ -51,7 +53,8 @@ public class RssReader {
             while (itEntries.hasNext()) {
                 SyndEntry entry = (SyndEntry) itEntries.next();
                 FeedArticleDao faDao = new FeedArticleDao();
-                faDao.Create(entry.getTitle(), entry.getLink(), tmp,entry.getAuthor(), entry.getPublishedDate() );
+                LocalDate date = entry.getPublishedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                faDao.Create(entry.getTitle(), entry.getLink(), tmp,entry.getAuthor(), date);
             }
         } catch (Exception e) {
             Logger.error(e.getMessage());
