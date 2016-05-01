@@ -1,13 +1,20 @@
 angular.module('application')
   .directive('rssComponent', component);
 
-component.$inject = [];
+component.$inject = ['$location'];
 
-function component() {
+function component($location) {
 
   return {
-    templateUrl: "/assets/rss-component/rss-component.template.html",
+    templateUrl: "/assets/javascripts/app/rss-component/rss-component.template.html",
     link: function(scope, elm, attr) {
+
+
+      scope.logout = function() {
+        sessionStorage.removeItem("user");
+        $location.path( "/login" );
+      }
+
       scope.feeds = [
         { name : "Et encore une defaite pour les brancos de Denver",
           content : "LLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereLorem ipsum tamereorem ipsum tamere" },

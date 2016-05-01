@@ -26,6 +26,10 @@
   margin: auto;
 }
 
+.logout ng-md-icon {
+  vertical-align: -webkit-baseline-middle;
+}
+
 .feed-list {
   height: 80%;
   z-index: 1;

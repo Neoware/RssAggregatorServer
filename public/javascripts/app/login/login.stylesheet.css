@@ -1,0 +1,21 @@
+.login-container {
+  width: 300px;
+  box-shadow: 0px 0px 4px #CECECE;
+}
+
+.login-container .logo {
+  padding: 10px 0px 10px 0px;
+}
+
+.login-container .content {
+  padding: 30px 20px 20px 20px;
+}
+
+.login-container .input-wrapper {
+  text-align: center;
+}
+
+.login-container .input-wrapper input {
+  width: 80%;
+  margin: 10px 0px 10px 0px;
+}
