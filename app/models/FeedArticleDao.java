@@ -23,4 +23,9 @@ public class FeedArticleDao {
         List<FeedArticle> temp = find.where().eq("feed_id", _feed_id).select("title").findList();
         return temp;
     }
+
+    public void Create(String title, String content, Feed feed){
+        FeedArticle temp = new FeedArticle(title, content, feed);
+        temp.save();
+    }
 }

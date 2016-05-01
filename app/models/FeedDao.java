@@ -16,20 +16,28 @@ public class FeedDao {
 
     public List<FeedArticle> findArticlesbyFeedId(int _feed_id){
         Feed temp = find.byId(_feed_id);
-        return temp.getFeedArticles();
+        if (temp != null)
+            return temp.getFeedArticles();
+        else
+            return null;
     }
 
     public Feed findByUrl(String _url){
          return find.where().eq("url", _url).findUnique();
     }
 
-    public void Create(String url){
+    public Feed Create(String url){
         Feed temp = new Feed(url);
         temp.save();
+        return findByUrl(url);
     }
 
     public void Delete(String url){
         Feed temp = findByUrl(url);
         temp.delete();
+    }
+
+    public Feed findById(int id){
+        return find.byId(id);
     }
 }

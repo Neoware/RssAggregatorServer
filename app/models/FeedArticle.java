@@ -40,6 +40,12 @@ public class FeedArticle extends Model implements Serializable{
         return null;
     }
 
+    public FeedArticle(String _title, String _content, Feed _feed){
+        title = _title;
+        content = _content;
+        feed = _feed;
+    }
+
     //region getters and setters
     public int getId() {
         return id;
