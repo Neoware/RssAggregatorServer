@@ -27,9 +27,10 @@ public class Feed extends Model implements Serializable {
     private List<UserSubscription> userSubscriptions = new ArrayList<>();
 
 
-    public Feed(String _url){
+    public Feed(String _url, String _name){
         this.url = _url;
-        this.name = "unknown";
+        this.name = _name;
+
     }
 
     //region getters and setters

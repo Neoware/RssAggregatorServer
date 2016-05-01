@@ -51,6 +51,8 @@ public class FeedArticle extends Model implements Serializable{
         publishedDate = _publishedDate;
     }
 
+    public FeedArticle(){};
+
     //region getters and setters
     public int getId() {
         return id;

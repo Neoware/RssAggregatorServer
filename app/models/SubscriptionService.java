@@ -16,11 +16,13 @@ public class SubscriptionService {
     private UserDao userDao;
     private FeedDao feedDao;
     private UserSubscriptionDao userSubscriptionDao;
+    private RssReader rssReader;
 
     public SubscriptionService(){
         userDao = new UserDao();
         feedDao = new FeedDao();
         userSubscriptionDao = new UserSubscriptionDao();
+        rssReader = new RssReader();
     }
 
 
@@ -30,14 +32,15 @@ public class SubscriptionService {
             if (tempFeed == null){
                 try {
                     if (RssReader.verify(url)) {
-                        feedDao.Create(url);
+                        rssReader.read(url, tempUser.getId());
                         tempFeed = feedDao.findByUrl(url);
                     }
                     else {
-                        throw new Exception("Bad rss");
+                        throw new Exception("Bad rss verify");
                     }
                 } catch (Exception e) {
-                    throw new Exception("Bad rss");
+                    e.printStackTrace();
+                    throw new Exception("throw verify");
                 }
             }
             else {

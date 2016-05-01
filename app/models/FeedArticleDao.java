@@ -26,8 +26,10 @@ public class FeedArticleDao {
         return temp;
     }
 
-    public void Create(String title, String content, Feed feed, String author, LocalDate publishedDate){
+
+    public FeedArticle Create(String title, String content, Feed feed, String author, LocalDate publishedDate){
         FeedArticle temp = new FeedArticle(title, content, feed, author, publishedDate);
         temp.save();
+        return (findUserArticleByArticleId(temp.getId()));
     }
 }

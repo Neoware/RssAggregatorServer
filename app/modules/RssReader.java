@@ -22,6 +22,7 @@ public class RssReader {
     public static Boolean verify(String url) throws Exception {
         try {
             URL currentUrl = new URL(new String(Base64.decodeBase64(url)));
+            System.out.println(new String(Base64.decodeBase64(url)));
             HttpURLConnection httpcon = (HttpURLConnection)currentUrl.openConnection();
 
             if (httpcon == null) {

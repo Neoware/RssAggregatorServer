@@ -26,8 +26,8 @@ public class FeedDao {
          return find.where().eq("url", _url).findUnique();
     }
 
-    public Feed Create(String url){
-        Feed temp = new Feed(url);
+    public Feed Create(String url, String name){
+        Feed temp = new Feed(url, name);
         temp.save();
         return findByUrl(url);
     }

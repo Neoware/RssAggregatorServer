@@ -24,6 +24,15 @@ public class UserArticleDao {
         }
     }
 
+    public void Create(int userId, int feedId){
+        User tempUser = new User();
+        tempUser.setId(userId);
+        FeedArticle tempFeedArticle = new FeedArticle();
+        tempFeedArticle.setId(feedId);
+        UserArticle toCreate = new UserArticle(tempUser, tempFeedArticle);
+        toCreate.save();
+    }
+
     public void updateArticleAsRead(UserArticle temp){
         temp.setRead(true);
         temp.update();

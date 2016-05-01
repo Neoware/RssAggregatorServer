@@ -23,6 +23,12 @@ public class UserArticle extends Model implements Serializable{
     private boolean isRead;
 
 
+    public UserArticle(User _user, FeedArticle _feedArticle){
+        user = _user;
+        feedArticle = _feedArticle;
+        isRead = false;
+    }
+
     @Override
     public String toString() {
         return "UserArticle{" +
@@ -32,6 +38,8 @@ public class UserArticle extends Model implements Serializable{
                 ", isRead=" + isRead +
                 '}';
     }
+
+
 
     //region getters and setters
     public int getId() {
