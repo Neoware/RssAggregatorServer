@@ -5,6 +5,9 @@ L'api est décomposée en principalement 2 parties :
 - Une partie user
 - Une partie feed
 
+Pour être utilisées, toutes les commandes (sauf celle permettant de créer un user) ont besoin d'un champs Authentication dans votre header HTTP contenant
+un md5 de votre username et de votre mot de passe concaténés.
+
 Partie user
 =================================
 
